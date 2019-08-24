@@ -8,8 +8,8 @@
 
 <span>To get started  `clone` or download the project onto your local machine</span>
 
-<span>Run either `yarn install` <em style="color:red">OR</em> `npm install` to download the dependencies.</span> 
+Then `cd` into `Prisoner_Skills` <span>Run either `yarn install` <em style="color:red">OR</em> `npm install` to download the dependencies.</span> 
 
-Then `cd` into `fe_bw` and run `yarn start` <em style="color:red">OR</em> `npm start` to start the server.
+Then run `yarn start` <em style="color:red">OR</em> `npm start` to start the server.
 
 #
