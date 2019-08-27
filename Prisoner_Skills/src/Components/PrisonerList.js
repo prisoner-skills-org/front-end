@@ -21,7 +21,6 @@ function PrisonerList() {
       <FlexContainer wrapWrap = {true} justifySpaceAround = {true}>
   {prisoner.map(prisoner => {
             return (
-              
               <PrisonerCard
                 key = {prisoner.id}
                 first_name= {prisoner.first_name}

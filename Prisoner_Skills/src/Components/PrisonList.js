@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import FlexContainer from 'react-styled-flexbox';
+import { Link } from "react-router-dom";
 import PrisonCard from './PrisonCard';
 
 function PrisonList() {
@@ -21,15 +22,15 @@ function PrisonList() {
       <FlexContainer wrapWrap = {true} justifySpaceAround = {true}>
   {prison.map(prison => {
             return (
-              
-              <PrisonCard
-                key = {prison.id}
-                Name= {prison.Name}
-                Workers = {prison.Workers}
-                Total = {prison.Total}
-                location = {prison.location}
-  
-              />
+              <Link to={`prison/${prison.id}`} key={prison.id}>
+                <PrisonCard
+                  key = {prison.id}
+                  Name= {prison.Name}
+                  Workers = {prison.Workers}
+                  Total = {prison.Total}
+                  location = {prison.location}
+                />
+              </Link>
             );
           })}
           

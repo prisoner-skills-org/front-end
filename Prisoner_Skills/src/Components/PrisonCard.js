@@ -34,7 +34,6 @@ color:grey;
 
 const PrisonCard = props => {
     return (
-     
         <Box>
           
             <TitleAttys>Prison Name: {props.Name}</TitleAttys>
@@ -43,7 +42,6 @@ const PrisonCard = props => {
             <BoxAttys>Location: {props.location}</BoxAttys>
           
         </Box>
-     
     );
   };
   
