@@ -3,48 +3,63 @@ import {Form, Field,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
 
-function FormBuilder({value,errors,touched,status}) {
-    const[user,setUser] =useState([])
+function FormBuilder({values,errors,touched,status}) {
+    const[newUser,setUser] =useState([])
  
     useEffect(() => {
     if (status) {
-      setUser([...user, status ])
+      setUser([...newUser, status ])
     }
   
     }, [status]);
     
  return (
-    <div className="Login" id="AdminSign">
+    <div className="SignUp" id="AdminSign">
  
      <Form>
   
-   <div>
-   {touched.email && errors.email && <p>{errors.email}</p>}
-       <Field type="email" name="email" placeholder="email"/>
- 
-       </div>
-       <div>
-       {touched.password && errors.password && <p>{errors.password}</p>} 
-       <Field type="password" name="password" placeholder="Password" />
-  
+   <div><label>Please Enter Inmates Name
+   {touched.name && errors.name && <p>{errors.name}</p>}
+       <Field type="name" name="name" placeholder="name"/>
+ </label>
        </div>
        <label>
- 
+       <div>
+          
+       <label className="checkbox-container">
+          Outside Clearance ?
+          <Field
+            type="checkbox"
+            name="cleared"
+            checked={values.cleared}
+          />
+    
+      
+        </label>
+
+       </div>
+       </label>
+       <label>
+            Skills :
+            <Field component ="input"type="text"name="skills"placeholder=""/><button type="submit" placeholder="Add">Add</button>
+
+            
        </label>
        <br/>
-       <button type="submit" >Login</button>
+    
        <br/>
        <br/>
+       <button type="signup">SignUp</button>
      </Form>
    
    
    
-     {user.map(eachUser => (
+     {newUser.map(eachUser => (
        
          <p key={eachUser.id}>
-           Username: {eachUser.username} <br />
-           Email: {eachUser.email}<br />
-           Location: {eachUser.location}<br/>
+           Name: {eachUser.name} <br />
+           Cleared: {eachUser.cleared}<br />
+           Skills: {eachUser.skills}<br/>
            ID:{eachUser.id}
           
          </p>
@@ -61,24 +76,24 @@ function FormBuilder({value,errors,touched,status}) {
 
 
 const FormikForm = withFormik({
-    mapPropsToValues({name,password,email,id,location}){
+    mapPropsToValues({name,cleared,skills,id}){
         return{
               
     id:id ||"",      
            user:name || "",
-            password:password || "",
-            email:email || "",
-            location:location ||"," 
+            cleared:cleared || "",
+          
+            skills:skills ||"" 
                  
             
         }
     }, 
       validationSchema: Yup.object().shape({
           
-        id: Yup.string(),
-         name: Yup.string().required("Please Enter Your Name"),
-        password: Yup.string().min(6).required(),
-        email: Yup.string().email().required("Please Enter Your E-Mail"),
+     
+         name: Yup.string().required("Please Enter A Name"),
+        cleared: Yup.boolean().required(),
+     
      
      
     }),
