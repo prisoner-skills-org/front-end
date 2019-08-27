@@ -35,7 +35,6 @@ function FormBuilder({value,errors,touched,status}) {
        <button type="submit" >Login</button>
        <br/>
        <br/>
-       <button type="signup">SignUp</button>
      </Form>
    
    
