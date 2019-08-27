@@ -1,11 +1,11 @@
 import React from 'react'
-import  PrisonsList from './PrisonList'
+import  PrisonList from './PrisonList'
 
 
 export default function Prisons(){
     return(
     <div className ='prisons-container'>
-        <PrisonsList/>
+        <PrisonList/>
     </div>
     
     )
