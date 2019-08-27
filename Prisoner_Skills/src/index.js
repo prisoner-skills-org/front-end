@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+import React  from 'react'
+import ReactDOM  from 'react-dom'
+import App from './App'
+
+
+
+ReactDOM.render(<App/>, document.getElementById('root'))
+=======
 import React  from 'react'
 import ReactDOM  from 'react-dom'
 import { BrowserRouter as Router } from "react-router-dom";
@@ -16,3 +25,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
+>>>>>>> 05dd527ed8ef874df19af5b0adf081479ba915d3

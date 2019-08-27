@@ -14,14 +14,10 @@ function FormBuilder({value,errors,touched,status}) {
     }, [status]);
     
  return (
-    <div className="">
+    <div className="Login" id="AdminSign">
  
      <Form>
-      <div> 
-      {touched.name && errors.name && <p>{errors.name}</p>}  
-       <Field type="text" name="username" placeholder="Username"/>
-   
-   </div>
+  
    <div>
    {touched.email && errors.email && <p>{errors.email}</p>}
        <Field type="email" name="email" placeholder="email"/>
