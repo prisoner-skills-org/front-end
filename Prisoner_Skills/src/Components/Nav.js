@@ -1,37 +1,20 @@
 import React from 'react'
-import { Menu, Button } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import { Button, Menu } from 'semantic-ui-react'
+import { Link } from "react-router-dom"
 
-const Nav = () => {
-  const userToken = localStorage.getItem("token")
-
-  return (
-    <>
-    { 
-      userToken ?
-      <Menu floated='right' fluid='true' >
-        <Menu.Item  position='right'>
-          Add Prisoner
-        </Menu.Item>
-        <Menu.Item>
-          Dashboard
-        </Menu.Item>
-        <Menu.Item>
-          Sign Out
-        </Menu.Item>
-      </Menu>
-      :
-      <Menu color='blue'>
-        <Menu.Item position='left'>
-          <Button primary>Sign up</Button>
-        </Menu.Item>
-        <Menu.Item position='right'>
-          Login
-        </Menu.Item>
-      </Menu>
-    }
-    </>
-  )
-}
+const Nav = () => (
+  <Menu size='big'>
+    <Menu.Item position='right'>
+      <Link to="/login">
+        <Button>Login</Button>
+      </Link>
+    </Menu.Item>
+    <Menu.Item >
+      <Link to="/signup">
+        <Button primary>Sign Up</Button>
+      </Link>
+    </Menu.Item>
+  </Menu>
+)
 
 export default Nav
