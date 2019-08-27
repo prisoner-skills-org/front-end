@@ -5,11 +5,11 @@ import { NavLink } from 'react-router-dom'
 
 import history from './../utils/history'
 
-const NavAdmin = () => {
+const NavAdmin = props => {
   const signOutHandler = event => {
     localStorage.removeItem('token')
+    props.setUserToken('')
     history.push('/');
-    // need to here call getData function to force re-render
   }
 
   return (
