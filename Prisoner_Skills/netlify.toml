@@ -1,6 +1,6 @@
 [build]
- base = "prisoner-skills/"
- publish = "prisoner-skills/build"
+ base = "Prisoner-Skills/"
+ publish = "Prisoner-Skills/build"
  command = "yarn build"
 [[redirects]]
  from = "/*"
