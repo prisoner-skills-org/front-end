@@ -1,6 +1,6 @@
 import AddSkill from "./AddSkill"
 import  React,{useEffect,useState} from "react";
-import {Form, Field,Button,withFormik} from "formik";
+import {Form, Field,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ font-size:80px;`
 const Label = styled.label`
 `
 
-export default function FormBuilder({values,errors,touched,status}){
+ function FormBuilder({values,errors,touched,status}){
     const[newUser,setUser] =useState([])
  
     useEffect(() => {
@@ -74,7 +74,7 @@ export default function FormBuilder({values,errors,touched,status}){
 
 
 
-const FormikForm = withFormik({
+const FormikSign = withFormik({
     mapPropsToValues({name,cleared,skills,id}){
         return{
               
@@ -117,4 +117,4 @@ const FormikForm = withFormik({
   }
   })(FormBuilder);
 
-  
+  export default FormikSign
