@@ -3,12 +3,12 @@ import {Form, Field,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
 
-function FormBuilder({values,errors,touched,status}) {
-    const[newUser,setUser] =useState([])
+function FormBuilder({errors,touched,status}) {
+    const[newPrison,setUser] =useState([])
  
     useEffect(() => {
     if (status) {
-      setUser([...newUser, status ])
+      setUser([...newPrison, status ])
     }
   
     }, [status]);
@@ -18,20 +18,26 @@ function FormBuilder({values,errors,touched,status}) {
  
      <Form>
   
-   <div><label>Please Enter Inmates Name
-   {touched.name && errors.name && <p>{errors.name}</p>}
-       <Field type="name" name="name" placeholder="name"/>
+   <label><div>
+     Admin's Name
+   {touched.admiName && errors.adminName && <p>{errors.adminName}</p>}
+       <Field 
+           type="name" 
+           name="adminname" 
+           placeholder="Name"/>
+           </div>
  </label>
-       </div>
+       
        <label>
        <div>
           
-       <label className="checkbox-container">
-          Outside Clearance ?
+       <label className="prisonName">
+            Prison's Name
+            {touched.prisonName && errors.prisonName && <p>{errors.prisonName}</p>}
           <Field
-            type="checkbox"
-            name="cleared"
-            checked={values.cleared}
+            type="name"
+            name="prisonName"
+             placeholder=""
           />
     
       
@@ -39,12 +45,22 @@ function FormBuilder({values,errors,touched,status}) {
 
        </div>
        </label>
-       <label>
-            Skills :
-            <Field component ="input"type="text"name="skills"placeholder=""/><button type="submit" placeholder="Add">Add</button>
+       <label className="email">
+            Email
+            {touched.email && errors.email&& <p>{errors.email}</p>}
+            <Field type="email" name="email" placeholder=""/>
 
             
        </label>
+       <div>
+                <label className="password">
+               Password 
+               {touched.password && errors.password && <p>{errors.password}</p>}
+               <Field type="password" name="password" />
+
+
+       </label>
+       </div>
        <br/>
     
        <br/>
@@ -54,13 +70,14 @@ function FormBuilder({values,errors,touched,status}) {
    
    
    
-     {newUser.map(eachUser => (
+     {newPrison.map(eachPrison=> (
        
-         <p key={eachUser.id}>
-           Name: {eachUser.name} <br />
-           Cleared: {eachUser.cleared}<br />
-           Skills: {eachUser.skills}<br/>
-           ID:{eachUser.id}
+         <p key={eachPrison.prisonName}>
+           Admin: {eachPrison.admiName} <br />
+           Prison:{eachPrison.prisonName}<br/>
+           email: {eachPrison.email}<br />
+           password: {eachPrison.password}<br/>
+           ID:{eachPrison.id}
           
          </p>
          
@@ -68,35 +85,38 @@ function FormBuilder({values,errors,touched,status}) {
        
        </div>
   )
- };
-   
+ 
+     };
    
 
 
 
 
 const FormikForm = withFormik({
-    mapPropsToValues({name,cleared,skills,id}){
+    mapPropsToValues({adminName,prisonName,email,id}){
         return{
               
     id:id ||"",      
-           user:name || "",
-            cleared:cleared || "",
+           adminName:adminName || "",
+            prisonName:prisonName || "",
           
-            skills:skills ||"" 
+            email:email ||"",
+        }
+      },         
+      validationSchema:
+       Yup.object().shape({
+          
+     
+        adminName: Yup.string().required("Please Enter A Name"),
+       prisonName: Yup.string().required("Please Enter The Prison Name"),
+       email: Yup.string().required("Please Enter A Password"),
                  
             
-        }
-    }, 
-      validationSchema: Yup.object().shape({
-          
-     
-         name: Yup.string().required("Please Enter A Name"),
-        cleared: Yup.boolean().required(),
+        }),
+  
      
      
-     
-    }),
+    
     handleSubmit(values,  {setError,resetForm, setStatus }) {
        
         axios
@@ -111,12 +131,9 @@ const FormikForm = withFormik({
             console.log("UH OH,",err); // There was an error creating the data and logs to console
           })
   
- 
-        
+        }
+        })(FormBuilder);
       
-    }
-  })(FormBuilder);
-
   
   export default FormikForm 
  
