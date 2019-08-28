@@ -10,6 +10,7 @@ import PrisonerList from './Components/PrisonerList'
 import SkillList from './Components/SkillList'
 import Login from './Components/Login'
 import signUp from './Components/signUp'
+import Footer from './Components/Footer'
 
 import AdminDashboard from "./Components/AdminDashboard";
 
@@ -34,6 +35,7 @@ function App(props){
       <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
       {/*<PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} />
       <PrivateRoute exact path="/admin/prisoner/new" component={AdminNewPrisoner} />*/}
+      <Footer />
     </div>
   )
 }
