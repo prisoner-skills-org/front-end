@@ -18,13 +18,6 @@ const FormContainer = styled.div`
   width: 100vw;
   background-color: #F7F7F7;
 `
-const StyledForm = styled(Form)`
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  height: 600px;
-  border: 1px solid red;
-`
 const FieldContainer = styled.div`
   height: 170px;
   display: flex;
