@@ -27,7 +27,7 @@ const FieldContainer = styled.div`
 `
 const StyledErrorMessage = styled.p`
   color: red;
-  margin: 5px;
+  margin: 10px;
 `
 
 function FormBuilder({ errors, touched, setUserToken, status, isSubmitting }) {
@@ -60,7 +60,7 @@ function FormBuilder({ errors, touched, setUserToken, status, isSubmitting }) {
                 </FieldContainer>
               </Segment>
             </SemanticForm>
-            {touched.email && errors.email && <StyledErrorMessage>{errors.email}</StyledErrorMessage>}
+            {touched.username && errors.username && <StyledErrorMessage>{errors.username}</StyledErrorMessage>}
             {touched.password && errors.password && <StyledErrorMessage>{errors.password}</StyledErrorMessage>}
           </Grid.Column>
         </Grid>
@@ -81,7 +81,7 @@ const FormikForm = withFormik({
   validationSchema: Yup.object().shape({
     username: Yup.string()
       // .email()
-      .required("Email required"),
+      .required("Username required"),
     password: Yup.string()
       // .min(6)
       .required("Password required"),
@@ -98,7 +98,6 @@ const FormikForm = withFormik({
         setTimeout(() => {
           setSubmitting(false);
         }, 2000);
-        // setSubmitting(false)
         localStorage.setItem('token', res.data.token);
         setStatus(res.data.token)
         history.push('/admin/prison/:id')
