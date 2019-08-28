@@ -3,6 +3,7 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
 import styled from 'styled-components'
+import Loader from 'react-loader-spinner';
 import { 
   Button, 
   Form as SemanticForm, 
@@ -29,7 +30,7 @@ const StyledErrorMessage = styled.p`
   margin: 5px;
 `
 
-function FormBuilder({ errors, touched, setUserToken, status }) {
+function FormBuilder({ errors, touched, setUserToken, status, isSubmitting }) {
   useEffect(() => {
     if (status) {
       setUserToken(status)
@@ -49,14 +50,18 @@ function FormBuilder({ errors, touched, setUserToken, status }) {
                 <FieldContainer>
                   <Field type="text" name="username" placeholder="Username"/>
                   <Field type="password" name="password" placeholder="Password" />
-                  <Button color='blue' fluid size='large'>
-                    Login
-                  </Button>
+                    <Button color='blue' fluid size='large'>
+                      {isSubmitting ? 
+                        <Loader type="ThreeDots" color="white" height={10} /> 
+                        : 
+                        'Login' 
+                      }
+                    </Button>
                 </FieldContainer>
               </Segment>
             </SemanticForm>
             {touched.email && errors.email && <StyledErrorMessage>{errors.email}</StyledErrorMessage>}
-            {touched.password && errors.password && <StyledErrorMessage>{errors.password}</StyledErrorMessage>} 
+            {touched.password && errors.password && <StyledErrorMessage>{errors.password}</StyledErrorMessage>}
           </Grid.Column>
         </Grid>
       </Form>
@@ -83,13 +88,17 @@ const FormikForm = withFormik({
   }),
   //======VALIDATION SCHEMA END============
     
-  handleSubmit(values, { resetForm, setSubmitting, setStatus }) {
+  handleSubmit(values, { resetForm, setSubmitting, setStatus } ) {
+    setSubmitting(true);
     axios
       .post("https://prisoners-bw.herokuapp.com/api/auth/login", values)
       .then(res => {
         console.log('axios login res', res)
         resetForm()
-        setSubmitting(false)
+        setTimeout(() => {
+          setSubmitting(false);
+        }, 2000);
+        // setSubmitting(false)
         localStorage.setItem('token', res.data.token);
         setStatus(res.data.token)
         history.push('/admin/prison/:id')
