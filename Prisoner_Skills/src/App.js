@@ -7,8 +7,8 @@ import NavAdmin from './Components/NavAdmin';
 
 import PrisonList from './Components/PrisonList'
 import PrisonerList from './Components/PrisonerList'
-import PrisonerCard from './Components/PrisonerCard'
-import Login from './Components/Login'
+import SkillList from './Components/SkillList'
+import FormikForm from './Components/Login'
 import signUp from './Components/signUp'
 
 import AdminDashboard from "./Components/AdminDashboard";
@@ -27,9 +27,9 @@ function App(props){
       { userToken ? <NavAdmin setUserToken={setUserToken}/> : <Nav /> }
       <Route exact path="/" component={PrisonList} />
       <Route exact path="/prison/:id" render={props => <PrisonerList {...props} />} />
-      <Route exact path="/prisoner/:id" render={props => <PrisonerCard {...props} />} />
+      <Route exact path="/prison/prisoner/:id" render={props => <SkillList {...props} />} />
 
-      <Route exact path="/login" component={Login} />
+      <Route exact path="/login" render={props => <FormikForm {...props} setUserToken={setUserToken} />} />
       <Route exact path="/signup" component={signUp} />
       <PrivateRoute exact path="/admin/add" component={FormikSign}/>
       <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
