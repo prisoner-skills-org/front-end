@@ -10,7 +10,7 @@ import PrisonerList from './Components/PrisonerList'
 import PrisonerCard from './Components/PrisonerCard'
 import Login from './Components/Login'
 import signUp from './Components/signUp'
-
+import FormPage from './Components/PrisonerSignUpForm'
 import AdminDashboard from "./Components/AdminDashboard";
 
 function App(props){
@@ -29,7 +29,7 @@ function App(props){
 
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={signUp} />
-      
+      <Route exact path="/addprisoner" component={FormPage}/>
       <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
       {/*<PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} />
       <PrivateRoute exact path="/admin/prisoner/new" component={AdminNewPrisoner} />*/}

@@ -1,9 +1,27 @@
 import  React,{useEffect,useState} from "react";
-import {Form, Field,withFormik} from "formik";
+import {Form, Field,Button,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
+import styled from 'styled-components';
 
-function FormBuilder({values,errors,touched,status}) {
+const Flex = styled.div`
+display:flex;
+flex-direction:column;
+flex-wrap:wrap;
+text-align:center;
+width:960px;
+height:800px;
+background-color: #007bff;
+padding-top:10rem;
+margin-left:10em;`
+
+const Title = styled.h1`
+font-size:80px;`
+const Label = styled.label`
+
+`
+
+ function FormBuilder({values,errors,touched,status}){
     const[newUser,setUser] =useState([])
  
     useEffect(() => {
@@ -14,20 +32,23 @@ function FormBuilder({values,errors,touched,status}) {
     }, [status]);
     
  return (
-    <div className="SignUp" id="AdminSign">
- 
+  
+   <Flex className="SignUp" id="PrisonerSignUp">
+     
+     <Title>Add Inmate</Title>
+    
      <Form>
   
-   <div><label>Please Enter Inmates Name
+   <Label><h3>Inmates Name</h3>
    {touched.name && errors.name && <p>{errors.name}</p>}
        <Field type="name" name="name" placeholder="name"/>
- </label>
-       </div>
-       <label>
-       <div>
+   </Label>
+   
+     
+      
           
-       <label className="checkbox-container">
-          Outside Clearance ?
+       <Label className="checkbox-container">
+          <h2>Outside Clearance ?</h2>
           <Field
             type="checkbox"
             name="cleared"
@@ -35,40 +56,44 @@ function FormBuilder({values,errors,touched,status}) {
           />
     
       
-        </label>
+        </Label>
 
-       </div>
-       </label>
-       <label>
-            Skills :
-            <Field component ="input"type="text"name="skills"placeholder=""/><button type="submit" placeholder="Add">Add</button>
+      
+       <Label>
+           <h2> Skills : </h2>
+            <Field 
+            component ="input"
+            type="text"name="skills"
+    
+            placeholder=""/>
+            <button type="submit"  placeholder="Add">Add</button>
 
             
-       </label>
+       </Label>
        <br/>
     
        <br/>
        <br/>
-       <button type="signup">SignUp</button>
+       <button  type="signup">SignUp</button>
+       <ul></ul>
      </Form>
    
    
    
      {newUser.map(eachUser => (
        
-         <p key={eachUser.id}>
-           Name: {eachUser.name} <br />
-           Cleared: {eachUser.cleared}<br />
-           Skills: {eachUser.skills}<br/>
-           ID:{eachUser.id}
-          
-         </p>
+              
          
-   ))}
+       <ul key={eachUser.id}>
+       <li> Skills : {eachUser.skills}</li>
+        
+       </ul>
        
-       </div>
+   ))}
+
+       </Flex>
   )
- };
+};
    
    
 
@@ -79,16 +104,17 @@ const FormikForm = withFormik({
     mapPropsToValues({name,cleared,skills,id}){
         return{
               
-    id:id ||"",      
+             id:id ||"",      
            user:name || "",
             cleared:cleared || "",
           
-            skills:skills ||"" 
+            skills:skills ||"",
                  
             
         }
     }, 
-      validationSchema: Yup.object().shape({
+      validationSchema:
+       Yup.object().shape({
           
      
          name: Yup.string().required("Please Enter A Name"),
@@ -97,7 +123,7 @@ const FormikForm = withFormik({
      
      
     }),
-    handleSubmit(values,  {setError,resetForm, setStatus }) {
+       handleSubmit(values,  {setError,resetForm, setStatus }) {
        
         axios
           .post("", values)
@@ -110,11 +136,11 @@ const FormikForm = withFormik({
             setError(err)
             console.log("UH OH,",err); // There was an error creating the data and logs to console
           })
-  
+    
  
         
       
-    }
+  }
   })(FormBuilder);
 
   
