@@ -1,107 +1,112 @@
-import  React,{useEffect,useState} from "react";
-import {Form, Field,withFormik} from "formik";
+import  React, { useEffect } from "react";
+import { Form, Field, withFormik } from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
+import styled from 'styled-components'
+import Loader from 'react-loader-spinner';
+import { 
+  Button, 
+  Form as SemanticForm, 
+  Grid, 
+  Header, 
+  Segment 
+} from 'semantic-ui-react'
 
-function FormBuilder({value,errors,touched,status}) {
-    const[user,setUser] =useState([])
- 
-    useEffect(() => {
+import history from './../utils/history'
+
+const FormContainer = styled.div`
+  height: 95vh;
+  width: 100vw;
+  background-color: #F7F7F7;
+`
+const FieldContainer = styled.div`
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`
+const StyledErrorMessage = styled.p`
+  color: red;
+  margin: 10px;
+`
+
+function FormBuilder({ errors, touched, setUserToken, status, isSubmitting }) {
+  useEffect(() => {
     if (status) {
-      setUser([...user, status ])
+      setUserToken(status)
     }
-  
-    }, [status]);
-    
- return (
-    <div className="Login" id="AdminSign">
- 
-     <Form>
-  
-   <div>
-   {touched.email && errors.email && <p>{errors.email}</p>}
-       <Field type="email" name="email" placeholder="email"/>
- 
-       </div>
-       <div>
-       {touched.password && errors.password && <p>{errors.password}</p>} 
-       <Field type="password" name="password" placeholder="Password" />
-  
-       </div>
-       <label>
- 
-       </label>
-       <br/>
-       <button type="submit" >Login</button>
-       <br/>
-       <br/>
-     </Form>
-   
-   
-   
-     {user.map(eachUser => (
-       
-         <p key={eachUser.id}>
-           Username: {eachUser.username} <br />
-           Email: {eachUser.email}<br />
-           Location: {eachUser.location}<br/>
-           ID:{eachUser.id}
-          
-         </p>
-         
-   ))}
-       
-       </div>
+  }, [status])
+
+  return (
+    <FormContainer>
+      <Form>
+        <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='blue' textAlign='center'>
+              Welcome Back!
+            </Header>
+            <SemanticForm size='large'>
+              <Segment stacked>
+                <FieldContainer>
+                  <Field type="text" name="username" placeholder="Username"/>
+                  <Field type="password" name="password" placeholder="Password" />
+                    <Button color='blue' fluid size='large'>
+                      {isSubmitting ? 
+                        <Loader type="ThreeDots" color="white" height={10} /> 
+                        : 
+                        'Login' 
+                      }
+                    </Button>
+                </FieldContainer>
+              </Segment>
+            </SemanticForm>
+            {touched.username && errors.username && <StyledErrorMessage>{errors.username}</StyledErrorMessage>}
+            {touched.password && errors.password && <StyledErrorMessage>{errors.password}</StyledErrorMessage>}
+          </Grid.Column>
+        </Grid>
+      </Form>
+    </FormContainer>
   )
- };
-   
-   
-
-
-
+}
 
 const FormikForm = withFormik({
-    mapPropsToValues({name,password,email,id,location}){
-        return{
-              
-    id:id ||"",      
-           user:name || "",
-            password:password || "",
-            email:email || "",
-            location:location ||"," 
-                 
-            
-        }
-    }, 
-      validationSchema: Yup.object().shape({
-          
-        id: Yup.string(),
-         name: Yup.string().required("Please Enter Your Name"),
-        password: Yup.string().min(6).required(),
-        email: Yup.string().email().required("Please Enter Your E-Mail"),
-     
-     
-    }),
-    handleSubmit(values,  {setError,resetForm, setStatus }) {
-       
-        axios
-          .post("", values)
-          .then(res => {
-            setStatus(res.data)
-            resetForm()
-            
-          })
-          .catch(err => {
-            setError(err)
-            console.log("UH OH,",err); // There was an error creating the data and logs to console
-          })
-  
- 
-        
-      
+  mapPropsToValues({ username, password }) {
+    return { 
+      username: username || "",
+      password: password || "",
     }
-  })(FormBuilder);
+  },
 
-  
-  export default FormikForm 
- 
+  //======VALIDATION SCHEMA START==========
+  validationSchema: Yup.object().shape({
+    username: Yup.string()
+      // .email()
+      .required("Username required"),
+    password: Yup.string()
+      // .min(6)
+      .required("Password required"),
+  }),
+  //======VALIDATION SCHEMA END============
+    
+  handleSubmit(values, { resetForm, setSubmitting, setStatus } ) {
+    setSubmitting(true);
+    axios
+      .post("https://prisoners-bw.herokuapp.com/api/auth/login", values)
+      .then(res => {
+        console.log('axios login res', res)
+        resetForm()
+        setTimeout(() => {
+          setSubmitting(false);
+        }, 2000);
+        localStorage.setItem('token', res.data.token);
+        setStatus(res.data.token)
+        history.push('/admin/prison/:id')
+      })
+      .catch(err => {
+        console.log('axios login err', err)
+        setSubmitting(false)
+      })
+  }
+})(FormBuilder);
+
+export default FormikForm
