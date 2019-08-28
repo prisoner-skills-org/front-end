@@ -11,6 +11,8 @@ import SkillList from './Components/SkillList'
 import Login from './Components/Login'
 import signUp from './Components/signUp'
 
+import AdminDashboard from "./Components/AdminDashboard";
+
 function App(props){
   const [userToken, setUserToken] = useState('')
   
@@ -29,9 +31,9 @@ function App(props){
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={signUp} />
       
-      {/* <PrivateRoute exact path="/admin/prison/:id" component={AdminPrisonerList} />
-      <PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} />
-      <PrivateRoute exact path="/admin/prisoner/new" component={AdminNewPrisoner} /> */}
+      <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
+      {/*<PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} />
+      <PrivateRoute exact path="/admin/prisoner/new" component={AdminNewPrisoner} />*/}
     </div>
   )
 }
