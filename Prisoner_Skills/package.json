@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@sendgrid/mail": "^6.4.0",
     "axios": "^0.19.0",
     "faker": "^4.1.0",
     "formik": "^1.5.8",
     "griddle-react": "^1.0.0",
+    "material-ui": "^0.20.2",
+    "mdbreact": "^4.19.1",
     "react": "^16.9.0",
     "react-bootstrap-table-next": "^3.1.9",
     "react-data-grid": "^6.1.0",
     "react-dom": "^16.9.0",
-    "react-loading-spinner": "^1.0.12",
+    "react-loader-spinner": "^1.4.7",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
@@ -22,6 +23,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.0",
     "styled-components": "^4.3.2",
+    "validator": "^11.1.0",
     "yup": "^0.27.0"
   },
   "scripts": {
