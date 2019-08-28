@@ -3,7 +3,7 @@ import {Form, Field,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
 
-function FormBuilder({value,errors,touched,status}) {
+function FormBuilder({values,errors,touched,status}) {
     const[user,setUser] =useState([])
  
     useEffect(() => {
@@ -76,7 +76,7 @@ const FormikForm = withFormik({
       validationSchema: Yup.object().shape({
           
         id: Yup.string(),
-         name: Yup.string().required("Please Enter Your Name"),
+ 
         password: Yup.string().min(6).required(),
         email: Yup.string().email().required("Please Enter Your E-Mail"),
      
