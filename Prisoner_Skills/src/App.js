@@ -10,8 +10,10 @@ import PrisonerList from './Components/PrisonerList'
 import PrisonerCard from './Components/PrisonerCard'
 import Login from './Components/Login'
 import signUp from './Components/signUp'
-import FormPage from './Components/PrisonerSignUpForm'
+
 import AdminDashboard from "./Components/AdminDashboard";
+import './Components/PrisonerSignUpForm';
+import FormBuilder from './Components/PrisonerSignUpForm';
 
 function App(props){
   const [userToken, setUserToken] = useState('')
@@ -29,7 +31,7 @@ function App(props){
 
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={signUp} />
-      <Route exact path="/addprisoner" component={FormPage}/>
+      <Route exact path="/add" component={FormBuilder}/>
       <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
       {/*<PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} />
       <PrivateRoute exact path="/admin/prisoner/new" component={AdminNewPrisoner} />*/}
