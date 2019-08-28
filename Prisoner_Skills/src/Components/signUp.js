@@ -13,7 +13,6 @@ import {
 } from 'semantic-ui-react'
 
 import history from './../utils/history'
-import scultpting from './../img/sculpting.png'
 
 const FormContainer = styled.div`
   height: 90vh;
@@ -33,51 +32,49 @@ const StyledErrorMessage = styled.p`
 
 function FormBuilder({ errors, touched, status, isSubmitting }) {
   return (
-    <>
-      <FormContainer>
-        <Form>
-          <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
-            <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as='h2' color='blue' textAlign='center'>
-                Create an Admin Account
-              </Header>
-              <SemanticForm size='large'>
-                <Segment stacked>
-                  <FieldContainer>
-                    <Field 
-                      type="text" 
-                      name="username" 
-                      placeholder="Username" 
-                    />
-                    <Field 
-                      type="password" 
-                      name="password" 
-                      placeholder="Password"
-                    />
-                    <Field 
-                      type="password" 
-                      name="passwordConfirm" 
-                      placeholder="Confirm Password"
-                    />
-                    <Button color='blue' fluid size='large'>
-                      {isSubmitting ? 
-                        <Loader type="ThreeDots" color="white" height={10} /> 
-                        : 
-                        'Sign Up' 
-                      }
-                    </Button>
-                  </FieldContainer>
-                </Segment>
-              </SemanticForm>
-              {touched.username && errors.username&& <StyledErrorMessage>{errors.username}</StyledErrorMessage>}
-              {touched.password && errors.password && <StyledErrorMessage>{errors.password}</StyledErrorMessage>}
-              {touched.passwordConfirm && errors.passwordConfirm && <StyledErrorMessage>{errors.passwordConfirm}</StyledErrorMessage>}
-              <p>{status}</p>
-            </Grid.Column>
-          </Grid>
-        </Form>
-      </FormContainer>
-    </>
+    <FormContainer>
+      <Form>
+        <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='blue' textAlign='center'>
+              Create an Admin Account
+            </Header>
+            <SemanticForm size='large'>
+              <Segment stacked>
+                <FieldContainer>
+                  <Field 
+                    type="text" 
+                    name="username" 
+                    placeholder="Username" 
+                  />
+                  <Field 
+                    type="password" 
+                    name="password" 
+                    placeholder="Password"
+                  />
+                  <Field 
+                    type="password" 
+                    name="passwordConfirm" 
+                    placeholder="Confirm Password"
+                  />
+                  <Button color='blue' fluid size='large'>
+                    {isSubmitting ? 
+                      <Loader type="ThreeDots" color="white" height={10} /> 
+                      : 
+                      'Sign Up' 
+                    }
+                  </Button>
+                </FieldContainer>
+              </Segment>
+            </SemanticForm>
+            {touched.username && errors.username&& <StyledErrorMessage>{errors.username}</StyledErrorMessage>}
+            {touched.password && errors.password && <StyledErrorMessage>{errors.password}</StyledErrorMessage>}
+            {touched.passwordConfirm && errors.passwordConfirm && <StyledErrorMessage>{errors.passwordConfirm}</StyledErrorMessage>}
+            <StyledErrorMessage>{status}</StyledErrorMessage>
+          </Grid.Column>
+        </Grid>
+      </Form>
+    </FormContainer>
   )
 }
 
@@ -115,7 +112,7 @@ const FormikForm = withFormik({
       })
       .catch(err => {
         setError(err)
-        console.log('axios sign up err', err)
+        setStatus(err.message)
         setSubmitting(false)
       })
   }
