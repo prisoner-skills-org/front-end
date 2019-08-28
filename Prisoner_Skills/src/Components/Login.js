@@ -1,108 +1,63 @@
-import  React,{useEffect,useState} from "react";
-import {Form, Field,withFormik} from "formik";
+import  React, { useEffect } from "react";
+import { Form, Field, withFormik } from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
+import history from './../utils/history'
 
-function FormBuilder({value,errors,touched,status}) {
-    const[user,setUser] =useState([])
- 
-    useEffect(() => {
+function FormBuilder({ errors, touched, setUserToken, status }) {
+
+  useEffect(() => {
     if (status) {
-      setUser([...user, status ])
+      setUserToken(status)
     }
-  
-    }, [status]);
-    
- return (
-    <div className="Login" id="AdminSign">
- 
-     <Form>
-  
-   <div>
-   {touched.email && errors.email && <p>{errors.email}</p>}
-       <Field type="email" name="email" placeholder="email"/>
- 
-       </div>
-       <div>
-       {touched.password && errors.password && <p>{errors.password}</p>} 
-       <Field type="password" name="password" placeholder="Password" />
-  
-       </div>
-       <label>
- 
-       </label>
-       <br/>
-       <button type="submit" >Login</button>
-       <br/>
-       <br/>
-       <button type="signup">SignUp</button>
-     </Form>
-   
-   
-   
-     {user.map(eachUser => (
-       
-         <p key={eachUser.id}>
-           Username: {eachUser.username} <br />
-           Email: {eachUser.email}<br />
-           Location: {eachUser.location}<br/>
-           ID:{eachUser.id}
-          
-         </p>
-         
-   ))}
-       
-       </div>
+  }, [status])
+
+  return (
+    <Form>
+      <Field type="text" name="username" placeholder="Username"/>
+      <Field type="password" name="password" placeholder="Password" />
+      <button type="submit">Login</button>
+      {touched.email && errors.email && <p>{errors.email}</p>}
+      {touched.password && errors.password && <p>{errors.password}</p>} 
+    </Form>
   )
- };
-   
-   
-
-
-
+}
 
 const FormikForm = withFormik({
-    mapPropsToValues({name,password,email,id,location}){
-        return{
-              
-    id:id ||"",      
-           user:name || "",
-            password:password || "",
-            email:email || "",
-            location:location ||"," 
-                 
-            
-        }
-    }, 
-      validationSchema: Yup.object().shape({
-          
-        id: Yup.string(),
-         name: Yup.string().required("Please Enter Your Name"),
-        password: Yup.string().min(6).required(),
-        email: Yup.string().email().required("Please Enter Your E-Mail"),
-     
-     
-    }),
-    handleSubmit(values,  {setError,resetForm, setStatus }) {
-       
-        axios
-          .post("", values)
-          .then(res => {
-            setStatus(res.data)
-            resetForm()
-            
-          })
-          .catch(err => {
-            setError(err)
-            console.log("UH OH,",err); // There was an error creating the data and logs to console
-          })
-  
- 
-        
-      
+  mapPropsToValues({ username, password }) {
+    return { 
+      username: username || "",
+      password: password || "",
     }
-  })(FormBuilder);
+  },
 
-  
-  export default FormikForm 
- 
+  //======VALIDATION SCHEMA START==========
+  validationSchema: Yup.object().shape({
+    username: Yup.string()
+      // .email()
+      .required("Email required"),
+    password: Yup.string()
+      // .min(6)
+      .required("Password required"),
+  }),
+  //======VALIDATION SCHEMA END============
+    
+  handleSubmit(values, { resetForm, setSubmitting, setStatus }) {
+    axios
+      .post("https://prisoners-bw.herokuapp.com/api/auth/login", values)
+      .then(res => {
+        console.log('axios login res', res)
+        resetForm()
+        setSubmitting(false)
+        localStorage.setItem('token', res.data.token);
+        setStatus(res.data.token)
+        history.push('/')
+      })
+      .catch(err => {
+        console.log('axios login err', err)
+        setSubmitting(false)
+      })
+  }
+})(FormBuilder);
+
+export default FormikForm

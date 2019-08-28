@@ -29,7 +29,6 @@ const SkillCard = props => {
             <BoxAttys>{props.skill2}</BoxAttys>
             <BoxAttys>{props.skill3}</BoxAttys>
             <BoxAttys>{props.skill4}</BoxAttys>
- 
         </Box>
      
     );
