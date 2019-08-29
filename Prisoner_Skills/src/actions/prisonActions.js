@@ -1,16 +1,30 @@
 
 import axiosWithAuth from "../axiosWithAuth"
 
+export const SET_ACCOUNT = "SET_ACCOUNT";
+
 export const SET_PRISON = "SET_PRISON";
 export const SET_PRISONS = "SET_PRISONS"
+export const ADD_PRISON = "ADD_PRISON";
 
 export const GET_PRISONERS = "GET_PRISONERS";
 export const SET_PRISONERS = "SET_PRISONERS";
 export const UPDATE_PRISONER = "UPDATE_PRISONER";
 export const DELETE_PRISONER = "DELETE_PRISONER";
 
+export const IS_LOADING_ACCOUNT = "IS_LOADING_ACCOUNT";
 export const IS_LOADING_PRISONS = "IS_LOADING_PRISONS";
 export const IS_LOADING_PRISONERS = "IS_LOADING_PRISONERS";
+
+export const getAccountDetails = _ => dispatch => {
+    dispatch({ type: IS_LOADING_ACCOUNT, payload: true });
+
+    axiosWithAuth().get("https://prisoners-bw.herokuapp.com/api/users")
+        .then(res => {
+            let account = res.data.find(e => e.username === localStorage.getItem("username"));
+            dispatch({ type: SET_ACCOUNT, account });
+        })
+}
 
 export const setPrison = prisonInfo => dispatch => {
     dispatch({ type: SET_PRISON, prison: prisonInfo });
@@ -19,46 +33,45 @@ export const setPrison = prisonInfo => dispatch => {
 export const getPrisons = myID => dispatch => {
     dispatch({ type: IS_LOADING_PRISONS, payload: true });
 
-    setTimeout(_ => {
-        dispatch({
-            type: SET_PRISON,
-            prison: prisons.filter(e => e.admin_id === myID)[0]
+    axiosWithAuth().get("https://prisoners-bw.herokuapp.com/api/prisons")
+        .then(res => {
+            let prison = res.data.find(e => e.user_id === myID);
+            dispatch({
+                type: SET_PRISON,
+                prison: prison
+            });
         })
-    }, 2500);
+}
+
+export const addPrison = details => dispatch => {
+    prisons = [ ...prisons, details ];
+    dispatch({ type: ADD_PRISON, payload: details });
 }
 
 export const getAllPrisons = _ => dispatch => {
     dispatch({ type: IS_LOADING_PRISONS, payload: true });
 
-    setTimeout(_ => {
-        dispatch({
-            type: SET_PRISONS,
-            prisons: prisonData
+    axiosWithAuth().get("https://prisoners-bw.herokuapp.com/api/prisons")
+        .then(res => {
+            dispatch({ type: SET_PRISONS, prisons: res.data });
         })
-    }, 2500);
 }
 
 export const getPrisoners = prisonID => dispatch => {
     dispatch({ type: IS_LOADING_PRISONERS, payload: true });
 
-    setTimeout(_ => dispatch({ type: SET_PRISONERS, prisoners: data }), 2500);
-    /*axiosWithAuth().get(`${window.serverURL}/prison/${prisonName}/prisoners`)
+    axiosWithAuth().get("https://prisoners-bw.herokuapp.com/api/prisoners")
         .then(res => {
-            dispatch({ type: SET_PRISONERS, prisoners: res.data });
-        })*/
-    /*axiosWithAuth().get("https://my.api.mockaroo.com/prisoners.json?key=8c104da0", {
-        params: {}
-    })
-        .then(response => {
-            dispatch({ type: SET_PRISONERS, prisoners: response.data })
-        });*/
+            let prisoners = res.data.filter(e => e.prison_id === prisonID);
+            dispatch({ type: SET_PRISONERS, prisoners });
+        })
 }
 
-export const updatePrisoner = newData => dispatch => {
-    setTimeout(_ => dispatch({ type: UPDATE_PRISONER, prisoner: newData }));
+export const updatePrisoner = (newData, skills) => dispatch => {
+    setTimeout(_ => dispatch({ type: UPDATE_PRISONER, prisoner: { ...newData, skills } }));
 }
 
-const prisons = [
+let prisons = [
     { name: "County", address: "Tumbleweed", admin_id: 1 },
     { name: "CountryJail", address: "Tumbler", admin_id: 2 },
     { name: "Casd", address: "Tumble", admin_id: 3 },
