@@ -1,16 +1,28 @@
 
 import axiosWithAuth from "../axiosWithAuth"
 
+export const SET_ACCOUNT = "SET_ACCOUNT";
+
 export const SET_PRISON = "SET_PRISON";
 export const SET_PRISONS = "SET_PRISONS"
+export const ADD_PRISON = "ADD_PRISON";
 
 export const GET_PRISONERS = "GET_PRISONERS";
 export const SET_PRISONERS = "SET_PRISONERS";
 export const UPDATE_PRISONER = "UPDATE_PRISONER";
 export const DELETE_PRISONER = "DELETE_PRISONER";
 
+export const IS_LOADING_ACCOUNT = "IS_LOADING_ACCOUNT";
 export const IS_LOADING_PRISONS = "IS_LOADING_PRISONS";
 export const IS_LOADING_PRISONERS = "IS_LOADING_PRISONERS";
+
+export const getAccountDetails = username => dispatch => {
+    dispatch({ type: IS_LOADING_ACCOUNT, payload: true });
+
+    setTimeout(_ => {
+        dispatch({ type: SET_ACCOUNT, account: { id: 1, username: "admin1" } });
+    }, 2500)
+}
 
 export const setPrison = prisonInfo => dispatch => {
     dispatch({ type: SET_PRISON, prison: prisonInfo });
@@ -25,6 +37,11 @@ export const getPrisons = myID => dispatch => {
             prison: prisons.filter(e => e.admin_id === myID)[0]
         })
     }, 2500);
+}
+
+export const addPrison = details => dispatch => {
+    prisons = [ ...prisons, details ];
+    dispatch({ type: ADD_PRISON, payload: details });
 }
 
 export const getAllPrisons = _ => dispatch => {
@@ -58,7 +75,7 @@ export const updatePrisoner = newData => dispatch => {
     setTimeout(_ => dispatch({ type: UPDATE_PRISONER, prisoner: newData }));
 }
 
-const prisons = [
+let prisons = [
     { name: "County", address: "Tumbleweed", admin_id: 1 },
     { name: "CountryJail", address: "Tumbler", admin_id: 2 },
     { name: "Casd", address: "Tumble", admin_id: 3 },
