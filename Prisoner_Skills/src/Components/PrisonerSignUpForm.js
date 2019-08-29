@@ -1,6 +1,6 @@
 // import AddSkill from "./AddSkill"
 import  React,{useEffect,useState} from "react";
-import {Form, Field,withFormik} from "formik";
+import {Form, Field,withFormik, isInteger} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
 import { bounce } from 'react-animations'
@@ -12,6 +12,7 @@ import {
   Segment,
   Form as SemanticForm} from 'semantic-ui-react';
   import '../PrisonerSign.css'
+import axiosWithAuth from "../axiosWithAuth";
 
 
 
@@ -106,7 +107,12 @@ margin-top:2rem;
          </FieldContainer>
                
  
-       
+          <FieldContainer>
+            <Header as='h3'>Prison ID:
+            {touched.prison_id && errors.prison_id && <StyledErrorMessage>{errors.prison_id}</StyledErrorMessage>}
+            <Field type="number" name="prison_id" />
+            </Header>
+          </FieldContainer>
        
         
         <FieldContainer>
@@ -138,7 +144,7 @@ margin-top:2rem;
 
 
 const FormikSign = withFormik({
-    mapPropsToValues({name,skills,yes,no,male,female}){
+    mapPropsToValues({name,skills,yes,no,male,female,prison_id}){
         return{
               
               
@@ -146,10 +152,11 @@ const FormikSign = withFormik({
            canHaveWorkLeave: yes ||  "Yes",
        canHaveWorkLeave: no    ||   "No",
           //  select : false || '',
-            skills:skills || '',
+            skills:skills || [], 
             gender:male || "Male",
-            gender:female || "Female"
-
+            gender:female || "Female",
+            id:prison_id||   isInteger,
+           
                  
             
         }
@@ -162,8 +169,8 @@ const FormikSign = withFormik({
     
         skills: Yup.string().required("Please enter inmates skills. If none enter n/a"),
         canHaveWorkLeave: Yup.string().required("Please select if cleared for outside"),
-       gender: Yup.string().required("Please select a gender")
-  
+       gender: Yup.string().required("Please select a gender"),
+       prison_id: Yup.number().required("Please Enter Your Prison Id")
   
         // select: Yup.string().required('Please Make A Selection')    
      
@@ -171,9 +178,15 @@ const FormikSign = withFormik({
      
     }),
        handleSubmit(value,  {resetForm , setError,}) {
-       
-        axios
-          .post("https://prisoners-bw.herokuapp.com/api/prisoners", value)
+       console.log(value)
+       const newPrisoner = {
+        name: value.name,
+        gender: value.gender,
+        prison_id: value.prison_id,
+        canHaveWorkLeave: value.canHaveWorkLeave,
+      }
+        axiosWithAuth()
+          .post("https://prisoners-bw.herokuapp.com/api/auth/prisoners", newPrisoner)
           .then(res => {
           
             resetForm()
