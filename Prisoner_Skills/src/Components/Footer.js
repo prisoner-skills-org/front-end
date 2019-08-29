@@ -8,11 +8,11 @@ const Footer = () => (
   <Menu size='small'>
     <Menu.Item>
     <i class="phone icon"></i>
-    555-555-5555
+    801-555-4689
     </Menu.Item>
     <Menu.Item position='left'>
     <i class="envelope outline icon"></i>
-    prisonerskills@gmail.com
+    support@prisonerskills.com
     </Menu.Item>
     <Menu.Item position='right'>
       <Link to="/about">
@@ -20,7 +20,7 @@ const Footer = () => (
       </Link>
     </Menu.Item>
     <Menu.Item >
-      <Link to="/">
+      <Link to="/home">
         Home
       </Link>
     </Menu.Item>
