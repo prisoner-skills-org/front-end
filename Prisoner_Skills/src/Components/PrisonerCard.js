@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import FlexContainer from 'react-styled-flexbox';
 
 const Box = styled.div`
 border:1px solid black;
@@ -32,22 +33,32 @@ margin-left:5px;
 `;
 const Button = styled.button`
 border-radius:8px;
-width:200px;
+width:100px;
 height:25px;
 background-color:#2185d0;
 color:white;
-position:relative;
-right:-67px;
+margin:4px;
 `;
 
 const PrisonerCard = props => {
+    function enterHandler (event){
+        event.target.style.backgroundColor = "#e0e1e2";
+        event.target.style.color="black";
+    }
+    function leaveHandler (event){
+        event.target.style.backgroundColor= "#2185d0";
+        event.target.style.color="white";
+    }
     return (
      
         <Box>
           
             <TitleAttys>Prisoner Name: {props.first_name} {props.last_name}</TitleAttys>
             <BoxAttys>Gender: {props.gender}</BoxAttys>           
-   
+            <FlexContainer justifyCenter = {true}>
+                <Button onMouseEnter={enterHandler}
+                        onMouseLeave={leaveHandler}>Skill Set</Button>
+            </FlexContainer>
         </Box>
      
     );
