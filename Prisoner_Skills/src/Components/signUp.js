@@ -14,89 +14,6 @@ import {
 
 import history from './../utils/history'
 
-<<<<<<< HEAD
-function FormBuilder({errors,touched,status}) {
-    const[newPrison,setUser] =useState([])
- 
-    useEffect(() => {
-    if (status) {
-      setUser([...newPrison, status ])
-    }
-  
-    }, [status]);
-    
- return (
-    <div className="SignUp" id="AdminSign">
- 
-     <Form>
-  
-   <label><div>
-     Admin's Name
-   {touched.admiName && errors.adminName && <p>{errors.adminName}</p>}
-       <Field 
-           type="name" 
-           name="adminName" 
-           placeholder="Name"/>
-           </div>
- </label>
-       
-       <label>
-       <div>
-          
-       <label className="prisonName">
-            Prison's Name
-            {touched.prisonName && errors.prisonName && <p>{errors.prisonName}</p>}
-          <Field
-            type="name"
-            name="prisonName"
-             placeholder=""
-          />
-    
-      
-        </label>
-
-       </div>
-       </label>
-       <label className="email">
-            Email
-            {touched.email && errors.email&& <p>{errors.email}</p>}
-            <Field type="email" name="email" placeholder=""/>
-
-            
-       </label>
-       <div>
-                <label className="password">
-               Password 
-               {touched.password && errors.password && <p>{errors.password}</p>}
-               <Field type="password" name="password" />
-
-
-       </label>
-       </div>
-       <br/>
-    
-       <br/>
-       <br/>
-       <button type="submit">SignUp</button>
-     </Form>
-   
-   
-   
-     {newPrison.map(eachPrison=> (
-       
-         <p key={eachPrison.prisonName}>
-           Admin: {eachPrison.adminName} <br />
-           Prison:{eachPrison.prisonName}<br/>
-           email: {eachPrison.email}<br />
-           password: {eachPrison.password}<br/>
-           ID:{eachPrison.id}
-          
-         </p>
-         
-   ))}
-       
-       </div>
-=======
 const FormContainer = styled.div`
   height: 90vh;
   width: 100vw;
@@ -118,7 +35,7 @@ function FormBuilder({ errors, touched, status, isSubmitting }) {
     <FormContainer>
       <Form>
         <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
-          <Grid.Column style={{ maxWidth: 450 }}>
+          <Grid.Column style={{ maxWidth: 1000, maxHeight:600,}}>
             <Header as='h2' color='blue' textAlign='center'>
               Create an Admin Account
             </Header>
@@ -158,7 +75,6 @@ function FormBuilder({ errors, touched, status, isSubmitting }) {
         </Grid>
       </Form>
     </FormContainer>
->>>>>>> 91eae32129a264c58906413e830849307c243a61
   )
 }
 
