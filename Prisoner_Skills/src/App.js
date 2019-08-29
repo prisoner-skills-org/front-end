@@ -11,6 +11,7 @@ import SkillList from './Components/SkillList'
 import Login from './Components/Login'
 import signUp from './Components/signUp'
 import Footer from './Components/Footer'
+import FormikSign from './Components/PrisonerSignUpForm'
 
 import AdminDashboard from "./Components/AdminDashboard";
 
@@ -29,12 +30,12 @@ function App(props){
       <Route exact path="/prison/prisoner/:id" render={props => <SkillList {...props} />} />
 
 
-      <Route exact path="/login" component={Login} />
+      <Route exact path="/login" render={props => <FormikForm {...props} setUserToken={setUserToken} />} />
       <Route exact path="/signup" component={signUp} />
       
       <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
-      {/*<PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} />
-      <PrivateRoute exact path="/admin/prisoner/new" component={AdminNewPrisoner} />*/}
+      {/* <PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} /> */}
+      <PrivateRoute exact path="/admin/prisoner/new" component={FormikSign} />
       <Footer />
     </div>
   )

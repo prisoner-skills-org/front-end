@@ -91,7 +91,7 @@ const FormikForm = withFormik({
   handleSubmit(values, { resetForm, setSubmitting, setStatus } ) {
     setSubmitting(true);
     axios
-      .post("https://prisoners-bw.herokuapp.com/api/auth/login", values)
+      .post("https://prisoners-bw.herokuapp.com/api/login", values)
       .then(res => {
         console.log('axios login res', res)
         resetForm()
