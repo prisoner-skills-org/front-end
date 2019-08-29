@@ -3,18 +3,19 @@ import  React,{useEffect,useState} from "react";
 import {Form, Field,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
-import styled from 'styled-components';
+import { bounce } from 'react-animations'
+import styled,{keyframes} from 'styled-components';
 import {
  
   Grid,
   Header,
   Segment,
-  Form as SemanticForm,} from 'semantic-ui-react'
-  import '../App.css'
+  Form as SemanticForm} from 'semantic-ui-react';
+  import '../PrisonerSign.css'
 
 
 
-
+const Bounce = styled.h1`animation:4s  ${keyframes `${bounce}`} infinite;`
 const FormContainer = styled.div`
   height: 95vh;
   width: 100vw;
@@ -35,9 +36,9 @@ background-color:white;
 width:  150px;
 height:50px;
 border-radius:12px;
-margin-left:12rem;
+margin-left:8rem;
 
-margin-top:3rem;
+margin-top:2rem;
 
 &:hover{
   background-color:#007bff;
@@ -48,7 +49,7 @@ margin-top:3rem;
 
 
 
- function FormBuilder({value,errors,touched,status}){
+ function FormBuilder({value,errors,touched,status,props}){
     const[newUser,setUser] =useState([])
 
     useEffect(() => {
@@ -57,16 +58,16 @@ margin-top:3rem;
     }
   
     }, [newUser]);
-    console.log(newUser)
+
  return (
   <FormContainer>
  
      <Form>
        <Grid  textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
-       <Grid.Column style={{ maxWidth: 600 }}>
-     <Header as ='h2' color='white' textAlign='center'>
+       <Grid.Column style={{ maxWidth: 450  }}>
+     <Bounce><Header as ='h2' color='white' textAlign='center'>
        Add Inmate
-       </Header>
+       </Header></Bounce>
     <SemanticForm size ='large'>
       <Segment stacked>
         
@@ -100,11 +101,13 @@ margin-top:3rem;
         <FieldContainer>
           <Header as='h3'>Skills:
           {touched.skills && errors.skills && <StyledErrorMessage>{errors.skills}</StyledErrorMessage>}
-         <Field type='textarea' name='skills' />
+         <Field type='textarea'  name='skills' />
          </Header>
         </FieldContainer>
         <FieldContainer>
           <Button type = 'submit'>Submit</Button>
+    
+
       </FieldContainer>
       </Segment>
       </SemanticForm>
