@@ -1,8 +1,9 @@
-import { SET_PRISON, SET_PRISONERS, UPDATE_PRISONER, DELETE_PRISONER, IS_LOADING_PRISONS, IS_LOADING_PRISONERS } from "../actions/prisonActions"
+import { SET_PRISON, SET_PRISONS, SET_PRISONERS, UPDATE_PRISONER, DELETE_PRISONER, IS_LOADING_PRISONS, IS_LOADING_PRISONERS } from "../actions/prisonActions"
 
 const initialState = {
     prisonData: {},
     prisoners: [],
+    prisons: [],
     prisonersHashMap: {},
     isLoadingPrisons: false,
     isLoadingPrisoners: false,
@@ -19,6 +20,8 @@ export const reducer = (state = initialState, action) => {
                 prisonersHashMap: constructHashmap(action.prisoners), 
                 isLoadingPrisoners: false 
             };
+        case SET_PRISONS:
+                return { ...state, prisons: action.prisons, isLoadingPrisons: false };
         case UPDATE_PRISONER:
             let newPrisonList = updatePrisoner(state.prisoners, action.prisoner);
             return { 
