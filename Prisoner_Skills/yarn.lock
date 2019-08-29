@@ -8516,11 +8516,14 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+<<<<<<< HEAD
 react-animations@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-animations/-/react-animations-1.0.0.tgz#d96222920dfeabec8984d9b2ef2c5a5aadb40f06"
   integrity sha512-ePPpVgdKnNEXm+LP1ww5s3n0JzebBw9QdRfxRqogzeg1PDIn6kf0pmvgeTeVZQXXpGmHImkIeTiaQR1O6xjntA==
 
+=======
+>>>>>>> 91eae32129a264c58906413e830849307c243a61
 react-app-polyfill@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-1.0.2.tgz#2a51175885c88245a2a356dc46df29f38ec9f060"
@@ -8642,14 +8645,22 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+<<<<<<< HEAD
 react-loader-spinner@^1.0.12:
+=======
+react-loader-spinner@^1.4.7:
+>>>>>>> 91eae32129a264c58906413e830849307c243a61
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/react-loader-spinner/-/react-loader-spinner-1.4.7.tgz#9a914dbb54341bfab0be293365756fecf67dcf75"
   integrity sha512-46DaZeo5KUZ9u7Rv2l8hfQod5rHiui+2OlRoyqNzFuxna5BxZlC3NAR6byb0ZRIXwv05UrJKu2S8egoFzUzMKA==
   dependencies:
     babel-runtime "^6.6.1"
 
+<<<<<<< HEAD
 react-modal@^3.6.1:
+=======
+react-modal@^3.10.1, react-modal@^3.6.1:
+>>>>>>> 91eae32129a264c58906413e830849307c243a61
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.10.1.tgz#ba37927871830c798f51404aa6bc71ff7a5e4c16"
   integrity sha512-2DKIfdOc8+WY+SYJ/xf/WBwOYMmNAYAyGkYlc4e1TCs9rk1xY4QBz04hB3UHGcrLChh7ce77rHAe6VPNmuLYsQ==
@@ -8875,6 +8886,7 @@ react-transition-group@^2.2.1, react-transition-group@^2.5.3, react-transition-g
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
+<<<<<<< HEAD
 react-transition-group@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.2.2.tgz#8b5252410180c27fd7eebf50b185256b41799b16"
@@ -8885,6 +8897,8 @@ react-transition-group@^4.2.2:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+=======
+>>>>>>> 91eae32129a264c58906413e830849307c243a61
 react@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
@@ -9502,9 +9516,15 @@ send@0.17.1:
     statuses "~1.5.0"
 
 serialize-javascript@^1.7.0:
+<<<<<<< HEAD
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.8.0.tgz#9515fc687232e2321aea1ca7a529476eb34bb480"
   integrity sha512-3tHgtF4OzDmeKYj6V9nSyceRS0UJ3C7VqyD2Yj28vC/z2j6jG5FmFGahOKMD9CrglxTm3tETr87jEypaYV8DUg==
+=======
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.9.0.tgz#5b77019d7c3b85fe91b33ae424c53dcbfb6618bd"
+  integrity sha512-UkGlcYMtw4d9w7YfCtJFgdRTps8N4L0A48R+SmcGL57ki1+yHwJXnalk5bjgrw+ljv6SfzjzPjhohod2qllg/Q==
+>>>>>>> 91eae32129a264c58906413e830849307c243a61
 
 serve-index@^1.7.2:
   version "1.9.1"

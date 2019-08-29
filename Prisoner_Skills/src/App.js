@@ -10,6 +10,8 @@ import PrisonerList from './Components/PrisonerList'
 import SkillList from './Components/SkillList'
 import FormikForm from './Components/Login'
 import signUp from './Components/signUp'
+import Footer from './Components/Footer'
+import FormikSign from './Components/PrisonerSignUpForm'
 
 import AdminDashboard from "./Components/AdminDashboard";
 
@@ -34,8 +36,9 @@ function App(props){
       <Route exact path="/add" component={FormikSign}/>
       <PrivateRoute exact path="/admin/add" component={FormikSign}/> 
       <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
-      {/*<PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} />
-      <PrivateRoute exact path="/admin/prisoner/new" component={AdminNewPrisoner} />*/}
+      {/* <PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} /> */}
+      <PrivateRoute exact path="/admin/prisoner/new" component={FormikSign} />
+      <Footer />
     </div>
   )
 }
