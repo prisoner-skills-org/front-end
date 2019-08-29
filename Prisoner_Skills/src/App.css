@@ -52,6 +52,12 @@
 #root > div > div.sc-kGXeez.cxJJSK > form > div > div > form > div{
   background-color: #007bff;
 }
+#root > div > div.sc-kGXeez.cxJJSK > form > div > div > form > div > div:nth-child(1){
+  text-align: left;
+}
+#root > div > div.sc-kGXeez.cxJJSK > form > div > div > form > div > div:nth-child(1) > h3 > input[type=name]{
+  width:100%;
+}
 
 
 
@@ -61,3 +67,4 @@
     min-height: 7rem;
   }
   #root > div > div.sc-kGXeez.cxJJSK > form > div > div > form > div > div:nth-child(3) > h3 {text-align:left}
+  #root > div > div.sc-kGXeez.cxJJSK > form > div > div > form > div > div:nth-child(2) > h3 {text-align: left}

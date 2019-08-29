@@ -77,14 +77,25 @@ font-size:20px;
       <Segment stacked>
         
         <FieldContainer>
-          <Header as ='h3'>Inmates Name {<br/>}
+          <Header as ='h3'>Inmates Name: {<br/>}
+          {touched.name && errors.name && <StyledErrorMessage>{errors.name}</StyledErrorMessage>} 
         <Field type="name" name="name" />
         </Header>
         </FieldContainer>
          <FieldContainer>
-         <Header as='h3'>Cleared For Outside?</Header>
-        <Yes> Yes </Yes>
-        <Checkbox  type="checkbox" name="cleared" />
+         <Header as='h3'>Cleared For Outside?
+         {touched.select && errors.select && <StyledErrorMessage>{errors.select}</StyledErrorMessage>}
+        <Field component="select" name="cleared" className="cleared">
+            <option>Please Select</option>
+         
+            <option value='true' name='yes'>Yes</option>
+
+            <option value='false' name='no'>No</option>
+            
+                
+                
+                </Field>
+                </Header>
          </FieldContainer>
                
  
@@ -93,7 +104,7 @@ font-size:20px;
         
         <FieldContainer>
           <Header as='h3'>Skills:
-       
+          {touched.skills && errors.skills && <StyledErrorMessage>{errors.skills}</StyledErrorMessage>}
          <Field type='textarea' name='skills' placeholder="Add Skills"/>
          </Header>
         </FieldContainer>
@@ -102,8 +113,8 @@ font-size:20px;
       </FieldContainer>
       </Segment>
       </SemanticForm>
-     
-      {touched.name && errors.name && <StyledErrorMessage>{errors.name}</StyledErrorMessage>} 
+  
+    
       </Grid.Column>
       </Grid>
     </Form>
@@ -118,13 +129,14 @@ font-size:20px;
 
 
 const FormikSign = withFormik({
-    mapPropsToValues({name,skills}){
+    mapPropsToValues({name,skills,cleared,select}){
         return{
               
               
            name: name || '',
-          
-          //  cleared:cleared|| true,
+           yes: true  || '',
+           no : false || '',
+          //  select : false || '',
             skills:skills || '',
                  
             
@@ -136,7 +148,9 @@ const FormikSign = withFormik({
      
          name: Yup.string().required("Please Enter A Name"),
     
-        skills: Yup.string(),
+        skills: Yup.string().required("Please enter inmates skills. If none enter n/a"),
+  
+        // select: Yup.string().required('Please Make A Selection')    
      
      
      
@@ -146,8 +160,9 @@ const FormikSign = withFormik({
         axios
           .post("https://reqres.in/api/users", value)
           .then(res => {
-            
+          
             resetForm()
+           
             console.log(res)
           })
           .catch(err => {
