@@ -1,4 +1,4 @@
-import  React from "react";
+import  React, { useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
@@ -70,7 +70,7 @@ function FormBuilder({ errors, touched, status, isSubmitting }) {
             {touched.username && errors.username&& <StyledErrorMessage>{errors.username}</StyledErrorMessage>}
             {touched.password && errors.password && <StyledErrorMessage>{errors.password}</StyledErrorMessage>}
             {touched.passwordConfirm && errors.passwordConfirm && <StyledErrorMessage>{errors.passwordConfirm}</StyledErrorMessage>}
-            <StyledErrorMessage>{status}</StyledErrorMessage>
+            {{status} ? <StyledErrorMessage>{status}</StyledErrorMessage> : ''}
           </Grid.Column>
         </Grid>
       </Form>
@@ -98,19 +98,25 @@ const FormikForm = withFormik({
   //======VALIDATION SCHEMA END============
   
   handleSubmit(values, { setError, resetForm, setStatus, setSubmitting }) {
+    const newAdminData = {
+      username: values.username,
+      password: values.password
+    }
+    console.log(newAdminData)
     setSubmitting(true);
     axios
-      .post("https://prisoners-bw.herokuapp.com/api/auth/register", values)
+      .post("https://prisoners-bw.herokuapp.com/api/register", newAdminData)
       .then(res => {
-        console.log('axios sign up res', res)
-        setStatus('Account created! Redirecting to login...')
+        console.log('axios sign up res', res.statusText)
+        setStatus(res.statusText)
         setTimeout(() => {
           setSubmitting(false);
           history.push('/login')
-        }, 2000);
+        }, 1500);
         resetForm()
       })
       .catch(err => {
+        console.log(err)
         setError(err)
         setStatus(err.message)
         setSubmitting(false)
