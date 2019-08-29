@@ -107,12 +107,12 @@ margin-top:2rem;
          </FieldContainer>
                
  
-          <FieldContainer>
+          {/* <FieldContainer>
             <Header as='h3'>Prison ID:
             {touched.prison_id && errors.prison_id && <StyledErrorMessage>{errors.prison_id}</StyledErrorMessage>}
             <Field type="number" name="prison_id" />
             </Header>
-          </FieldContainer>
+          </FieldContainer> */}
        
         
         <FieldContainer>
@@ -155,7 +155,7 @@ const FormikSign = withFormik({
             skills:skills || [], 
             gender:male || "Male",
             gender:female || "Female",
-            id:prison_id||   isInteger,
+            // id:prison_id||   isInteger,
            
                  
             
@@ -170,7 +170,7 @@ const FormikSign = withFormik({
         skills: Yup.string().required("Please enter inmates skills. If none enter n/a"),
         canHaveWorkLeave: Yup.string().required("Please select if cleared for outside"),
        gender: Yup.string().required("Please select a gender"),
-       prison_id: Yup.number().required("Please Enter Your Prison Id")
+      //  prison_id: Yup.number().required("Please Enter Your Prison Id")
   
         // select: Yup.string().required('Please Make A Selection')    
      
@@ -178,21 +178,33 @@ const FormikSign = withFormik({
      
     }),
        handleSubmit(value,  {resetForm , setError,}) {
-       console.log(value)
+      //  console.log(value)
        const newPrisoner = {
-        name: value.name,
-        gender: value.gender,
-        prison_id: value.prison_id,
-        canHaveWorkLeave: value.canHaveWorkLeave,
-      }
+         name: value.name,
+         gender: value.gender,
+         prison_id: 0,
+         canHaveWorkLeave: value.canHaveWorkLeave,
+       };console.log(newPrisoner)
         axiosWithAuth()
           .post("https://prisoners-bw.herokuapp.com/api/auth/prisoners", newPrisoner)
-          .then(res => {
-          
+
+          .then((res) => {
             resetForm()
-           
-            console.log(res)
-          })
+            console.log("1st Call", res)
+          const sendSkills = {
+            name: value.skills,
+            prisoner_id: res.data.id,
+      
+          }
+         axiosWithAuth().post("https://prisoners-bw.herokuapp.com/api/auth/skills", sendSkills)
+  .then(res =>{console.log("Skills Added", res)   })
+
+})
+      
+          
+       
+  
+    
           .catch(err => {
             setError(err)
             console.log("UH OH,",err) // There was an error creating the data and logs to console
