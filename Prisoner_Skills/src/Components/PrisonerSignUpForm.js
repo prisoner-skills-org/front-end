@@ -32,11 +32,11 @@ const StyledErrorMessage = styled.p`
   margin: 10px;
 `
 const Button = styled.button`
-background-color:white;
-width:  150px;
+background-color:ash;
+width:  100%;
 height:50px;
 border-radius:12px;
-margin-left:8rem;
+
 
 margin-top:2rem;
 
@@ -173,7 +173,7 @@ const FormikSign = withFormik({
        handleSubmit(value,  {resetForm , setError,}) {
        
         axios
-          .post("https://reqres.in/api/users", value)
+          .post("https://prisoners-bw.herokuapp.com/api/prisoners", value)
           .then(res => {
           
             resetForm()
