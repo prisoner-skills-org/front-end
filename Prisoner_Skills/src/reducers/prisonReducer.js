@@ -1,22 +1,23 @@
-import { SET_PRISON, SET_PRISONERS, UPDATE_PRISONER, DELETE_PRISONER, IS_LOADING } from "../actions/prisonActions"
+import { SET_PRISON, SET_PRISONERS, UPDATE_PRISONER, DELETE_PRISONER, IS_LOADING_PRISONS, IS_LOADING_PRISONERS } from "../actions/prisonActions"
 
 const initialState = {
     prisonData: {},
     prisoners: [],
     prisonersHashMap: {},
-    isLoading: false
+    isLoadingPrisons: false,
+    isLoadingPrisoners: false,
 };
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PRISON: 
-            return { ...state, prisonData: action.prison };
+            return { ...state, prisonData: action.prison, isLoadingPrisons: false };
         case SET_PRISONERS:
             return { 
                 ...state, 
                 prisoners: action.prisoners, 
                 prisonersHashMap: constructHashmap(action.prisoners), 
-                isLoading: false 
+                isLoadingPrisoners: false 
             };
         case UPDATE_PRISONER:
             let newPrisonList = updatePrisoner(state.prisoners, action.prisoner);
@@ -27,8 +28,10 @@ export const reducer = (state = initialState, action) => {
             };
         case DELETE_PRISONER:
             return { ...state, prison: action.payload };
-        case IS_LOADING:
-            return { ...state, isLoading: action.payload };
+        case IS_LOADING_PRISONS:
+            return { ...state, isLoadingPrisons: action.payload };
+        case IS_LOADING_PRISONERS:
+                return { ...state, isLoadingPrisoners: action.payload };
         default:
             return state;
     }

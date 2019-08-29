@@ -42,9 +42,7 @@ import { Formik, Form, Field, FieldArray } from 'formik';
                    Add Skill
                   </button>
                 )}
-                <div>
-                  <button type="submit">Submit</button>
-                </div>
+            
               </div>
             )}
           />

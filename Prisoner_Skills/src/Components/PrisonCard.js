@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import FlexContainer from 'react-styled-flexbox';
-import { Link } from "react-router-dom";
-
+import FlexContainer from "react-styled-flexbox";
 
 const Box = styled.div`
 border:1px solid black;
@@ -35,14 +33,23 @@ margin-left:5px;
 `;
 const Button = styled.button`
 border-radius:8px;
-width:200px;
+width:150px;
 height:25px;
 background-color:#2185d0;
 color:white;
-position:relative;
+margin:4px;
 `;
 
+
 const PrisonCard = props => {
+    function enterHandler (event){
+        event.target.style.backgroundColor = "#e0e1e2";
+        event.target.style.color="black";
+    }
+    function leaveHandler (event){
+        event.target.style.backgroundColor= "#2185d0";
+        event.target.style.color="white";
+    }
     return (
         <Box>
           
@@ -50,6 +57,10 @@ const PrisonCard = props => {
             <BoxAttys>Workers: {props.Workers}</BoxAttys>
             <BoxAttys>Total: {props.Total}</BoxAttys>
             <BoxAttys>Location: {props.location}</BoxAttys>
+            <FlexContainer justifyCenter = {true}>
+                <Button onMouseEnter={enterHandler}
+                        onMouseLeave={leaveHandler}>Available Workers</Button>
+            </FlexContainer>
 
         </Box>
     );
