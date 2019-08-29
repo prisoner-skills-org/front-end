@@ -2,6 +2,8 @@ import  React,{useEffect,useState} from "react";
 import {Form, Field,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
+import '../App.css'
+
 
 function FormBuilder({errors,touched,status}) {
     const[newPrison,setUser] =useState([])
@@ -73,7 +75,7 @@ function FormBuilder({errors,touched,status}) {
      {newPrison.map(eachPrison=> (
        
          <p key={eachPrison.prisonName}>
-           Admin: {eachPrison.admiName} <br />
+           Admin: {eachPrison.adminName} <br />
            Prison:{eachPrison.prisonName}<br/>
            email: {eachPrison.email}<br />
            password: {eachPrison.password}<br/>

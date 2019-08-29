@@ -30,7 +30,7 @@ const NavAdmin = props => {
           to="/admin/prisoner/new" 
           activeClassName="selected" 
           activeStyle={{
-            color: "blue",
+            color: "#05A6D2",
           }}>
           Add Prisoner
         </NavLink>
@@ -40,7 +40,7 @@ const NavAdmin = props => {
           to="/admin/prison/:id" 
           activeClassName="selected" 
           activeStyle={{
-            color: "blue",
+            color: "#05A6D2",
           }}>
           Dashboard
         </NavLink>

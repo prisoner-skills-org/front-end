@@ -1,122 +1,177 @@
+// import AddSkill from "./AddSkill"
 import  React,{useEffect,useState} from "react";
 import {Form, Field,withFormik} from "formik";
 import * as Yup from 'yup';
 import axios from  'axios'
-
-function FormBuilder({values,errors,touched,status}) {
-    const[newUser,setUser] =useState([])
+import styled from 'styled-components';
+import {
  
+  Grid,
+  Header,
+  Segment,
+  Form as SemanticForm,} from 'semantic-ui-react'
+  import '../App.css'
+
+
+
+
+const FormContainer = styled.div`
+  height: 95vh;
+  width: 100vw;
+  background-color: #F7F7F7;
+`
+const FieldContainer = styled.div`
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`
+const StyledErrorMessage = styled.p`
+  color: red;
+  margin: 10px;
+`
+const Button = styled.button`
+background-color:white;
+width:  150px;
+height:50px;
+border-radius:12px;
+margin-left:12rem;
+
+margin-top:3rem;
+
+&:hover{
+  background-color:#007bff;
+  color:white;
+}`
+
+
+
+
+
+ function FormBuilder({value,errors,touched,status}){
+    const[newUser,setUser] =useState([])
+
     useEffect(() => {
     if (status) {
       setUser([...newUser, status ])
     }
   
-    }, [status]);
-    
+    }, [newUser]);
+    console.log(newUser)
  return (
-    <div className="SignUp" id="AdminSign">
+  <FormContainer>
  
      <Form>
-  
-   <div><label>Please Enter Inmates Name
-   {touched.name && errors.name && <p>{errors.name}</p>}
-       <Field type="name" name="name" placeholder="name"/>
- </label>
-       </div>
-       <label>
-       <div>
-          
-       <label className="checkbox-container">
-          Outside Clearance ?
-          <Field
-            type="checkbox"
-            name="cleared"
-            checked={values.cleared}
-          />
-    
-      
-        </label>
-
-       </div>
-       </label>
-       <label>
-            Skills :
-            <Field component ="input"type="text"name="skills"placeholder=""/><button type="submit" placeholder="Add">Add</button>
-
-            
-       </label>
-       <br/>
-    
-       <br/>
-       <br/>
-       <button type="signup">SignUp</button>
-     </Form>
+       <Grid  textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
+       <Grid.Column style={{ maxWidth: 600 }}>
+     <Header as ='h2' color='white' textAlign='center'>
+       Add Inmate
+       </Header>
+    <SemanticForm size ='large'>
+      <Segment stacked>
+        
+        <FieldContainer>
+          <Header as ='h3'>Inmates Name: {<br/>}
+          {touched.name && errors.name && <StyledErrorMessage>{errors.name}</StyledErrorMessage>} 
+        <Field type="name" name="name" />
+        </Header>
+        </FieldContainer>
+         <FieldContainer>
+         <Header as='h3'>Does inmate have outside clearance?
+         {touched.cleared && errors.cleared && <StyledErrorMessage>{errors.cleared}</StyledErrorMessage>}
+        <Field component="select" name="cleared" className="cleared">
    
-   
-   
-     {newUser.map(eachUser => (
-       
-         <p key={eachUser.id}>
-           Name: {eachUser.name} <br />
-           Cleared: {eachUser.cleared}<br />
-           Skills: {eachUser.skills}<br/>
-           ID:{eachUser.id}
-          
-         </p>
+            <option>Please Select</option>
          
-   ))}
+            <option value='true' name='yes'>Yes</option>
+
+            <option value='false' name='no'>No</option>
+            
+                
+                
+                </Field>
+                </Header>
+         </FieldContainer>
+               
+ 
        
-       </div>
+       
+        
+        <FieldContainer>
+          <Header as='h3'>Skills:
+          {touched.skills && errors.skills && <StyledErrorMessage>{errors.skills}</StyledErrorMessage>}
+         <Field type='textarea' name='skills' />
+         </Header>
+        </FieldContainer>
+        <FieldContainer>
+          <Button type = 'submit'>Submit</Button>
+      </FieldContainer>
+      </Segment>
+      </SemanticForm>
+  
+    
+      </Grid.Column>
+      </Grid>
+    </Form>
+     
+       </FormContainer>
   )
- };
+};
    
    
 
 
 
 
-const FormikForm = withFormik({
-    mapPropsToValues({name,cleared,skills,id}){
+const FormikSign = withFormik({
+    mapPropsToValues({name,skills,cleared,Yes,No}){
         return{
               
-    id:id ||"",      
-           user:name || "",
-            cleared:cleared || "",
-          
-            skills:skills ||"" 
+              
+           name: name || '',
+           cleared: Yes ||  "Yes",
+       cleared: No    ||   "No",
+          //  select : false || '',
+            skills:skills || '',
                  
             
         }
     }, 
-      validationSchema: Yup.object().shape({
+      validationSchema:
+       Yup.object().shape({
           
-     
+    
          name: Yup.string().required("Please Enter A Name"),
-        cleared: Yup.boolean().required(),
+    
+        skills: Yup.string().required("Please enter inmates skills. If none enter n/a"),
+        cleared: Yup.string().required("Please select if cleared for outside")
+  
+  
+        // select: Yup.string().required('Please Make A Selection')    
      
      
      
     }),
-    handleSubmit(values,  {setError,resetForm, setStatus }) {
+       handleSubmit(value,  {resetForm , setError,}) {
        
         axios
-          .post("", values)
+          .post("https://reqres.in/api/users", value)
           .then(res => {
-            setStatus(res.data)
+          
             resetForm()
-            
+           
+            console.log(res)
           })
           .catch(err => {
             setError(err)
-            console.log("UH OH,",err); // There was an error creating the data and logs to console
+            console.log("UH OH,",err) // There was an error creating the data and logs to console
+            // resetForm({})
           })
-  
+    
  
         
       
-    }
+  }
   })(FormBuilder);
 
-  
-  export default FormikForm 
- 
+  export default FormikSign

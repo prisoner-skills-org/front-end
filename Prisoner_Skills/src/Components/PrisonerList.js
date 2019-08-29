@@ -4,7 +4,6 @@ import FlexContainer from 'react-styled-flexbox';
 import PrisonerCard from './PrisonerCard';
 import { Link } from "react-router-dom";
 
-
 function PrisonerList() {
     const [prisoner, setPrisoner] = useState([]);
     useEffect(() => {
