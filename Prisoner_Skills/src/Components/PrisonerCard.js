@@ -54,7 +54,9 @@ const PrisonerCard = props => {
         <Box>
           
             <TitleAttys>Prisoner Name: {props.first_name} {props.last_name}</TitleAttys>
-            <BoxAttys>Gender: {props.gender}</BoxAttys>           
+            <BoxAttys>Gender: {props.gender}</BoxAttys> 
+            <BoxAttys>Cleared: {props.cleared}</BoxAttys>           
+
             <FlexContainer justifyCenter = {true}>
                 <Button onMouseEnter={enterHandler}
                         onMouseLeave={leaveHandler}>Skill Set</Button>

@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios";
+import React, { useEffect } from 'react'
 import FlexContainer from 'react-styled-flexbox';
 import PrisonerCard from './PrisonerCard';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getPrisoners } from "../actions/prisonActions";
 
-function PrisonerList() {
-    const [prisoner, setPrisoner] = useState([]);
+function PrisonerList(props) {
     useEffect(() => {
-      axios
-        .get("https://my.api.mockaroo.com/prisoners.json?key=8c104da0", {
-          params: {}
-        })
-        .then(response => {
-          const prisoner = response.data;
-          console.log("Prisoner:", prisoner);
-          setPrisoner(prisoner);
-        });
+      props.getPrisoners(props.match.params.id)
     }, []);
   
     return (
       <FlexContainer wrapWrap = {true} justifySpaceAround = {true}>
-  {prisoner.map(prisoner => {
+  {props.prisoners.length===0 &&props.isLoadingPrisoners&&<h1>Loading...</h1>}
+  {props.prisoners.map(prisoner => {
             return (
             <Link to={`prisoner/${prisoner.id}`} key={prisoner.id}>
               <PrisonerCard
@@ -37,4 +30,9 @@ function PrisonerList() {
       </FlexContainer>
   )
   }
-export default PrisonerList
+  const mapStateToProps = state => {
+    return {
+        ...state.prison
+    }
+}
+export default connect(mapStateToProps, {getPrisoners})(PrisonerList)
