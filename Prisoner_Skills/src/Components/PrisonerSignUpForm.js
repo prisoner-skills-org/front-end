@@ -5,13 +5,11 @@ import * as Yup from 'yup';
 import axios from  'axios'
 import styled from 'styled-components';
 import {
-  Checkbox,
+ 
   Grid,
   Header,
   Segment,
-  Form as SemanticForm,
- 
-  TextArea,} from 'semantic-ui-react'
+  Form as SemanticForm,} from 'semantic-ui-react'
   import '../App.css'
 
 
@@ -48,10 +46,6 @@ margin-top:3rem;
 
 
 
-const Yes = styled.div` 
-font-size:20px;
-`
-
 
 
  function FormBuilder({value,errors,touched,status}){
@@ -62,8 +56,8 @@ font-size:20px;
       setUser([...newUser, status ])
     }
   
-    }, [status]);
-    
+    }, [newUser]);
+    console.log(newUser)
  return (
   <FormContainer>
  
@@ -83,9 +77,10 @@ font-size:20px;
         </Header>
         </FieldContainer>
          <FieldContainer>
-         <Header as='h3'>Cleared For Outside?
-         {touched.select && errors.select && <StyledErrorMessage>{errors.select}</StyledErrorMessage>}
+         <Header as='h3'>Does inmate have outside clearance?
+         {touched.cleared && errors.cleared && <StyledErrorMessage>{errors.cleared}</StyledErrorMessage>}
         <Field component="select" name="cleared" className="cleared">
+   
             <option>Please Select</option>
          
             <option value='true' name='yes'>Yes</option>
@@ -105,7 +100,7 @@ font-size:20px;
         <FieldContainer>
           <Header as='h3'>Skills:
           {touched.skills && errors.skills && <StyledErrorMessage>{errors.skills}</StyledErrorMessage>}
-         <Field type='textarea' name='skills' placeholder="Add Skills"/>
+         <Field type='textarea' name='skills' />
          </Header>
         </FieldContainer>
         <FieldContainer>
@@ -129,13 +124,13 @@ font-size:20px;
 
 
 const FormikSign = withFormik({
-    mapPropsToValues({name,skills,cleared,select}){
+    mapPropsToValues({name,skills,cleared,Yes,No}){
         return{
               
               
            name: name || '',
-           yes: true  || '',
-           no : false || '',
+           cleared: Yes ||  "Yes",
+       cleared: No    ||   "No",
           //  select : false || '',
             skills:skills || '',
                  
@@ -145,10 +140,12 @@ const FormikSign = withFormik({
       validationSchema:
        Yup.object().shape({
           
-     
+    
          name: Yup.string().required("Please Enter A Name"),
     
         skills: Yup.string().required("Please enter inmates skills. If none enter n/a"),
+        cleared: Yup.string().required("Please select if cleared for outside")
+  
   
         // select: Yup.string().required('Please Make A Selection')    
      
