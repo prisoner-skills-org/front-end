@@ -25,7 +25,7 @@ function FormBuilder({errors,touched,status}) {
    {touched.admiName && errors.adminName && <p>{errors.adminName}</p>}
        <Field 
            type="name" 
-           name="adminname" 
+           name="adminName" 
            placeholder="Name"/>
            </div>
  </label>
@@ -67,7 +67,7 @@ function FormBuilder({errors,touched,status}) {
     
        <br/>
        <br/>
-       <button type="signup">SignUp</button>
+       <button type="submit">SignUp</button>
      </Form>
    
    
