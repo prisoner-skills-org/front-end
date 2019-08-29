@@ -1,8 +1,0 @@
-[build]
- base = "Prisoner_Skills/"
- publish = "Prisoner_Skills/build"
- command = "yarn build"
-[[redirects]]
- from = "/*"
- to = "/index.html"
- status = 200
