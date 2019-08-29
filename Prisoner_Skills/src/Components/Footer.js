@@ -12,7 +12,7 @@ const Footer = () => (
     </Menu.Item>
     <Menu.Item position='left'>
     <i class="envelope outline icon"></i>
-    support@prisonerskills.com
+     <a href="mailto:support@prisoner-skills.live">support@prisoner-skills.live</a> 
     </Menu.Item>
     <Menu.Item position='right'>
       <Link to="/about">

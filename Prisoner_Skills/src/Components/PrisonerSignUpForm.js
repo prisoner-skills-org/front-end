@@ -32,11 +32,11 @@ const StyledErrorMessage = styled.p`
   margin: 10px;
 `
 const Button = styled.button`
-background-color:white;
-width:  150px;
+background-color:ash;
+width:  100%;
 height:50px;
 border-radius:12px;
-margin-left:8rem;
+
 
 margin-top:2rem;
 
@@ -64,11 +64,11 @@ margin-top:2rem;
  
      <Form>
        <Grid  textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
-       <Grid.Column style={{ maxWidth: 450  }}>
+       <Grid.Column style={{ maxWidth: 960 }}>
      <Bounce><Header as ='h2' color='white' textAlign='center'>
        Add Inmate
        </Header></Bounce>
-    <SemanticForm size ='large'>
+    <SemanticForm size ='medium'>
       <Segment stacked>
         
         <FieldContainer>
@@ -77,10 +77,21 @@ margin-top:2rem;
         <Field type="name" name="name" />
         </Header>
         </FieldContainer>
+        <FieldContainer>
+          <Header as ='h3'>Gender:
+          {touched.gender && errors.gender && <StyledErrorMessage>{errors.gender}</StyledErrorMessage>}
+          <Field component="select" name="gender" className="gender">
+            <option>Please Select</option>
+            <option value="male" name="gender">Male</option>
+            <option value="female" name="gender">Female</option>
+            
+          </Field>
+          </Header>
+        </FieldContainer>
          <FieldContainer>
          <Header as='h3'>Does inmate have outside clearance?
-         {touched.cleared && errors.cleared && <StyledErrorMessage>{errors.cleared}</StyledErrorMessage>}
-        <Field component="select" name="cleared" className="cleared">
+         {touched.canHaveWorkLeave && errors.canHaveWorkLeave && <StyledErrorMessage>{errors.canHaveWorkLeave}</StyledErrorMessage>}
+        <Field component="select" name="canHaveWorkLeave" className="cleared">
    
             <option>Please Select</option>
          
@@ -127,15 +138,18 @@ margin-top:2rem;
 
 
 const FormikSign = withFormik({
-    mapPropsToValues({name,skills,cleared,Yes,No}){
+    mapPropsToValues({name,skills,yes,no,male,female}){
         return{
               
               
            name: name || '',
-           cleared: Yes ||  "Yes",
-       cleared: No    ||   "No",
+           canHaveWorkLeave: yes ||  "Yes",
+       canHaveWorkLeave: no    ||   "No",
           //  select : false || '',
             skills:skills || '',
+            gender:male || "Male",
+            gender:female || "Female"
+
                  
             
         }
@@ -147,7 +161,8 @@ const FormikSign = withFormik({
          name: Yup.string().required("Please Enter A Name"),
     
         skills: Yup.string().required("Please enter inmates skills. If none enter n/a"),
-        cleared: Yup.string().required("Please select if cleared for outside")
+        canHaveWorkLeave: Yup.string().required("Please select if cleared for outside"),
+       gender: Yup.string().required("Please select a gender")
   
   
         // select: Yup.string().required('Please Make A Selection')    
@@ -158,7 +173,7 @@ const FormikSign = withFormik({
        handleSubmit(value,  {resetForm , setError,}) {
        
         axios
-          .post("https://prisoners-bw.herokuapp.com/api/prisons/", value)
+          .post("https://prisoners-bw.herokuapp.com/api/prisoners", value)
           .then(res => {
           
             resetForm()
