@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, Menu, } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import { Link } from "react-router-dom"
-import styled from 'styled-components'
 
 
 const Footer = () => (
@@ -15,14 +14,14 @@ const Footer = () => (
      <a href="mailto:support@prisoner-skills.live">support@prisoner-skills.live</a> 
     </Menu.Item>
     <Menu.Item position='right'>
-      <Link to="/about">
+      <a href="http://www.patrickjstevenson.com/prisoner-skills/about.html">
         About Us
-      </Link>
+      </a>
     </Menu.Item>
     <Menu.Item >
-      <Link to="/home">
+      <a href="http://www.patrickjstevenson.com/prisoner-skills/index.html">
         Home
-      </Link>
+      </a>
     </Menu.Item>
   </Menu>
 )
