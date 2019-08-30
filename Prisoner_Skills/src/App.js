@@ -32,8 +32,8 @@ function App(props){
 
       <Route exact path="/login" render={props => <FormikForm {...props} setUserToken={setUserToken} />} />
       <Route exact path="/signup" component={signUp} />
-      <Route exact path="/add" component={FormikSign}/>
-      <PrivateRoute exact path="/admin/add" component={FormikSign}/> 
+
+      {/* <PrivateRoute exact path="/admin/add" component={FormikSign}/>  */}
       <PrivateRoute exact path="/admin/prison/:id" component={AdminDashboard} />
       {/* <PrivateRoute exact path="/admin/prisoner/:id" component={AdminPrisoner} /> */}
       <PrivateRoute exact path="/admin/prisoner/new" component={FormikSign} />

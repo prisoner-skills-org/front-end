@@ -182,7 +182,7 @@ const FormikSign = withFormik({
        const newPrisoner = {
          name: value.name,
          gender: value.gender,
-         prison_id: 0,
+         prison_id: localStorage.getItem("prison"),
          canHaveWorkLeave: value.canHaveWorkLeave,
        };console.log(newPrisoner)
         axiosWithAuth()
