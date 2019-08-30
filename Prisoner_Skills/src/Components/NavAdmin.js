@@ -13,7 +13,7 @@ const StyledLogo = styled.img`
 
 const NavAdmin = props => {
   const signOutHandler = event => {
-    localStorage.removeItem('token')
+    localStorage.clear();
     props.setUserToken('')
     history.push('/');
   }
