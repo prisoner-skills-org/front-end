@@ -38,7 +38,8 @@ export const getPrisons = myID => dispatch => {
         .then(res => {
           
             let prison = res.data.find(e => e.user_id === myID);
-            localStorage.setItem("prison", prison.id);
+            if(prison)
+                localStorage.setItem("prison", prison.id);
             dispatch({
                 type: SET_PRISON,
                 prison: prison
