@@ -110,6 +110,28 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, { getAccountDetails, getPrisons, addPrison, getPrisoners, updatePrisoner })(AdminDashboard);
 
+const Input = styled.input`
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    margin: 0;
+    outline: 0;
+    -webkit-appearance: none;
+    tap-highlight-color: rgba(255,255,255,0);
+    line-height: 1.21428571em;
+    padding: .67857143em 1em;
+    font-size: 1em;
+    background:
+    #fff;
+        background-image: none;
+    border: 1px solid
+    rgba(34,36,38,.15);
+    color:
+    rgba(0,0,0,.87);
+    border-radius: .28571429rem;
+    box-shadow: 0 0 0 0
+    transparent inset;
+    transition: color .1s ease,border-color .1s ease;
+`;
+
 class CreatePrisonForm extends React.Component {
     constructor(props) {
         super(props);
@@ -130,19 +152,20 @@ class CreatePrisonForm extends React.Component {
         e.preventDefault();
 
         this.props.addPrison(this.state);
+        setTimeout(_ => window.location.reload(), 2500);
     }
 
     render() {
         return (
-            <form onSubmit = {this.handleSubmit} style = {{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <label style = {{ display: "flex", flexDirection: "column" }}>Prison Name: 
-                    <input name = "name" type = "text" value = {this.state.name} onChange = {this.handleChange} />
+            <form onSubmit = {this.handleSubmit} style = {{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "30%", margin: "0 auto" }}>
+                <label style = {{ display: "flex", flexDirection: "column", width: "100%" }}>Prison Name: 
+                    <Input name = "name" type = "text" value = {this.state.name} onChange = {this.handleChange} />
                 </label>
-                <label style = {{ display: "flex", flexDirection: "column", margin: "10px 0" }}>Prison Address: 
-                    <input name = "address" type = "text" value = {this.state.address} onChange = {this.handleChange} />
+                <label style = {{ display: "flex", flexDirection: "column", margin: "20px 0", width: "100%" }}>Prison Address: 
+                    <Input name = "address" type = "text" value = {this.state.address} onChange = {this.handleChange} />
                 </label>
 
-                <button type = "submit">Create Prison</button>
+                <button type = "submit" style = {{ backgroundColor: "rgb(33, 133, 208)", color: "white", padding: "5px 10px", border: 0, borderRadius: 5, width: "100%", cursor: "pointer" }}>Create Prison</button>
             </form>
         );
     }
@@ -153,8 +176,8 @@ const Box = styled.div`
     margin-top:20px;
     background-color:whitesmoke;
     padding:3px;
-    width: 27vw;
     border-radius:3px;
+    width: 27vw;
     -webkit-box-shadow:0 0 8px rgba(0,0,0,.40);
     -moz-box-shadow:0 0 8px rgb(153,153,153);
     -o-box-shadow:0 0 8px #999;
@@ -240,21 +263,29 @@ const PrisonerEditView = props => {
         setSkills([ ...skills.filter(e => e.name !== skillValue) ]);
     }
 
+    const handleDelete = _ => {
+        axiosWithAuth().delete("https://prisoners-bw.herokuapp.com/api/auth/prisoners/" + fields.id)
+            .then(res => {
+                window.location.reload();
+            })
+    }
+
     return (
         <>
             <div style = {{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 15 }}>
-                <h3 style = {{ margin: 0, marginRight: 15 }}>{fields.name}'s info</h3>
-                { !editMode && <button onClick = {_ => setEditMode(true)}>Edit</button> }
+                <h3 style = {{ margin: 0, marginRight: 15, flexGrow: 1 }}>{fields.name}'s info</h3>
+                { !editMode && <button onClick = {_ => setEditMode(true)} style = {{ backgroundColor: "rgb(33, 133, 208)", color: "white", padding: "5px 10px", border: 0, borderRadius: 5, width: "50%", cursor: "pointer" }}>Edit</button> }
+                { !editMode && <button onClick = {handleDelete} style = {{ backgroundColor: "red", color: "white", padding: "5px 10px", border: 0, borderRadius: 5, width: "50%", cursor: "pointer" }}>Delete</button> }
             </div>
-            <div style = {{ display: editMode ? "flex" : "none", flexDirection: "column", marginBottom: 15 }}>
-                <label style = {{ display: "flex", flexDirection: "column", margin: "5px 0" }}> Name : <input type = "text" value = {fields.name} name = "name" onChange = {handleChange} /></label>
-                <label style = {{ display: "flex", flexDirection: "column", margin: "5px 0" }}>Gender: <input type = "text" value = {fields.gender} name = "gender" onChange = {handleChange} /></label>
-                <label style = {{ margin: "5px 0" }}>Can have work leave: <input type = "checkbox" checked = {fields.canHaveWorkLeave} name = "canHaveWorkLeave" onChange = {e => {
+            <div style = {{ display: editMode ? "flex" : "none", flexDirection: "column", marginBottom: 10 }}>
+                <label style = {{ display: "flex", flexDirection: "column", margin: "5px 0" }}> Name : <Input type = "text" value = {fields.name} name = "name" onChange = {handleChange} /></label>
+                <label style = {{ display: "flex", flexDirection: "column", margin: "5px 0" }}>Gender: <Input type = "text" value = {fields.gender} name = "gender" onChange = {handleChange} /></label>
+                <label style = {{ margin: "5px 0", display: "flex", alignItems: "center", margin: "20px 0" }}>Can have work leave: <input type = "checkbox" checked = {fields.canHaveWorkLeave} name = "canHaveWorkLeave" onChange = {e => {
                     setFields({ ...fields, canHaveWorkLeave: e.target.checked })
-                }} /></label>
-                <label>Skill: <input type = "text" value = {skillInput} onChange = {handleSkillChange} /><button onClick = {handleSkillAdd}>Add Skill</button></label>
-                <ul>
-                    { skills.map(e => <li key = {e.id}><span>{e.name}</span><button onClick = {_ => handleSkillDelete(e.name)}>Delete</button></li>) }
+                }} style = {{ marginLeft: 5 }} /></label>
+                <label style = {{  }}>Skill: <Input type = "text" value = {skillInput} onChange = {handleSkillChange} /><button onClick = {handleSkillAdd} style = {{ height: "37px", float: "right", backgroundColor: "rgb(33, 133, 208)", color: "white", padding: "5px 10px", border: 0, borderRadius: 5, cursor: "pointer" }}>Add Skill</button></label>
+                <ul style = {{ display: "flex", flexDirection: "column" }}>
+                    { skills.map(e => <li key = {e.id} style = {{ margin: "5px 0" }}><span>{e.name}</span><button onClick = {_ => handleSkillDelete(e.name)} style = {{ float: "right", backgroundColor: "red", color: "white", padding: "5px 10px", border: 0, borderRadius: 5, width: "50%", cursor: "pointer" }}>Delete</button></li>) }
                 </ul>
             </div>
             <div style = {{ display: !editMode ? "flex" : "none", flexDirection: "column" }}>
@@ -265,8 +296,8 @@ const PrisonerEditView = props => {
                 </ul>
             </div>
 
-            { editMode && <button onClick = {_ => setEditMode(false)}>Cancel</button> }
-            { editMode && <button onClick = {handleSubmit}>Save</button> }
+            { editMode && <button onClick = {_ => setEditMode(false)} style = {{ height: "37px", backgroundColor: "rgb(33, 133, 208)", color: "white", padding: "5px 10px", border: 0, borderRadius: 5, cursor: "pointer", marginRight: 5 }}>Cancel</button> }
+            { editMode && <button onClick = {handleSubmit} style = {{ height: "37px", backgroundColor: "rgb(33, 133, 208)", color: "white", padding: "5px 10px", border: 0, borderRadius: 5, cursor: "pointer" }}>Save</button> }
         </>
     );
 }
