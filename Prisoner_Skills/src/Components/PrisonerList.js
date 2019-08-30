@@ -7,7 +7,7 @@ import { getPrisoners } from "../actions/prisonActions";
 
 function PrisonerList(props) {
     useEffect(() => {
-      props.getPrisoners(props.match.params.id)
+      props.getPrisoners(parseInt(props.match.params.id))
     }, []);
   
     return (
@@ -18,10 +18,9 @@ function PrisonerList(props) {
             <Link to={`prisoner/${prisoner.id}`} key={prisoner.id}>
               <PrisonerCard
                 key = {prisoner.id}
-                first_name= {prisoner.first_name}
-                last_name= {prisoner.last_name}
+                name= {prisoner.name}
                 gender = {prisoner.gender}
-                cleared = {prisoner.cleared}
+                canHaveWorkLeave = {prisoner.canHaveWorkLeave}
               />
             </Link>
             );

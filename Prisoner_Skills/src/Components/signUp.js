@@ -35,7 +35,7 @@ function FormBuilder({ errors, touched, status, isSubmitting }) {
     <FormContainer>
       <Form>
         <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
-          <Grid.Column style={{ maxWidth: 450 }}>
+          <Grid.Column style={{ maxWidth: 1000, maxHeight:600,}}>
             <Header as='h2' color='blue' textAlign='center'>
               Create an Admin Account
             </Header>

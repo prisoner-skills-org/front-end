@@ -53,10 +53,8 @@ const PrisonCard = props => {
     return (
         <Box>
           
-            <TitleAttys>Prison Name: {props.Name}</TitleAttys>
-            <BoxAttys>Workers: {props.Workers}</BoxAttys>
-            <BoxAttys>Total: {props.Total}</BoxAttys>
-            <BoxAttys>Location: {props.location}</BoxAttys>
+            <TitleAttys>Prison Name: {props.name}</TitleAttys>
+            <BoxAttys>Address: {props.address}</BoxAttys>
             <FlexContainer justifyCenter = {true}>
                 <Button onMouseEnter={enterHandler}
                         onMouseLeave={leaveHandler}>Available Workers</Button>

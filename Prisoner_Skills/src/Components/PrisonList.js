@@ -17,13 +17,11 @@ function PrisonList(props) {
   {props.prisons.length===0 && props.isLoadingPrisons&&<h1>Loading...</h1>}
   {props.prisons.map(prison => {
             return (
-              <Link to={`prison/${prison[":id"]}`} key={prison[":id"]}>
+              <Link to={`prison/${prison.id}`} key={prison.id}>
                 <PrisonCard
-                  key = {prison[":id"]}
-                  Name= {prison.Name}
-                  Workers = {prison.Workers}
-                  Total = {prison.Total}
-                  location = {prison.location}
+                  key = {prison.id}
+                  name= {prison.name}
+                  address = {prison.address}
                 />
               </Link>
             );
