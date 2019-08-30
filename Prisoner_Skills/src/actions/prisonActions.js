@@ -27,6 +27,7 @@ export const getAccountDetails = _ => dispatch => {
 }
 
 export const setPrison = prisonInfo => dispatch => {
+
     dispatch({ type: SET_PRISON, prison: prisonInfo });
 }
 
@@ -35,7 +36,9 @@ export const getPrisons = myID => dispatch => {
 
     axiosWithAuth().get("https://prisoners-bw.herokuapp.com/api/prisons")
         .then(res => {
+          
             let prison = res.data.find(e => e.user_id === myID);
+            localStorage.setItem("prison", prison.id);
             dispatch({
                 type: SET_PRISON,
                 prison: prison
