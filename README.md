@@ -1,5 +1,5 @@
 # front-end   
-Live Demo https://prisoner-skills.live
+Live Demo https://prisoners-skills.netlify.com
 <br/>
 
 This project was created using <a href="https://create-react-app.dev/docs/getting-started">create-react-app</a> 
