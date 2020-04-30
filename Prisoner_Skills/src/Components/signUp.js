@@ -111,7 +111,9 @@ const FormikForm = withFormik({
         setStatus(res.statusText)
         setTimeout(() => {
           setSubmitting(false);
-          history.push('/login')
+          localStorage.setItem('username', res.data.saved.username)
+          localStorage.setItem('token', res.data.token)
+          history.push('/admin/prison/:id')
         }, 1500);
         resetForm()
       })
